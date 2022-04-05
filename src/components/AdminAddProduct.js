@@ -103,7 +103,6 @@ function Adminadd() {
 
   return (
     <>
-     
       <div className="container height-100 p-5 rounded my-5">
         <div className="row mb-5">
           <div className="col alert alert-primary fs-1 text-center">

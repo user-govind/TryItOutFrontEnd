@@ -42,14 +42,10 @@ export default function Login() {
     const url = "http://localhost:8080/login";
 
     let user = await axios.post(url, values);
-   
-    if(user!=null){
+
+    if (user != null) {
       navigate("/home");
-    }
-    else
-    navigate("login")
-
-
+    } else navigate("login");
   };
 
   const onChange = (e) => {
@@ -69,7 +65,10 @@ export default function Login() {
           />
         ))}
         <button className="logbutton">Login</button>
-        <p className="my-0 w-100 text-center"> New User? <Link to="/register"> Create an account</Link></p>
+        <p className="my-0 w-100 text-center">
+          {" "}
+          New User? <Link to="/register"> Create an account</Link>
+        </p>
       </form>
     </div>
   );

@@ -109,7 +109,14 @@ export default function OneProduct({ product, setproduct }) {
             Add to cart
           </button>
         </div>
-        <button className="btn btn-lg btn-primary w-100">Buy Now</button>
+        <button
+          className="btn btn-lg btn-primary w-100"
+          onClick={() => {
+            navigate("/payment");
+          }}
+        >
+          Buy Now
+        </button>
       </div>
     </div>
   );

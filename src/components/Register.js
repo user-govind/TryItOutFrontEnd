@@ -6,19 +6,18 @@ import "../stylesheets/Register.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import "../stylesheets/FormInput.css"
+import "../stylesheets/FormInput.css";
 
 export default function Register() {
-
   let navigate = useNavigate();
   const [values, setValues] = useState({
     username: "",
     email: "",
     password: "",
     confirmPassword: "",
-    firstName:"",
+    firstName: "",
     lastName: "",
-    mobile:""
+    mobile: "",
   });
   const [selectedFile, setSelectedFile] = useState(null);
   const inputs = [
@@ -86,54 +85,51 @@ export default function Register() {
       required: true,
     },
   ];
-  
-  const [ focused, setFocused ] = useState(false);
+
+  const [focused, setFocused] = useState(false);
 
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
-    sessionStorage.setItem("User",JSON.stringify(values));
-  
-    if((await axios.get("http://localhost:8080/send-OTP/"+values.email)).data)
-    navigate("/otpbox")
-    else
-    alert("Enter valid details")
-    
+    sessionStorage.setItem("User", JSON.stringify(values));
+
+    if (
+      (await axios.get("http://localhost:8080/send-OTP/" + values.email)).data
+    )
+      navigate("/otpbox");
+    else alert("Enter valid details");
   };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
   const upload = async (e) => {
     e.preventDefault();
-console.log(values.email)
-console.log(values.password)
+    console.log(values.email);
+    console.log(values.password);
     let loginData = {
-      email : values.email,
-      password : values.password
-    }
+      email: values.email,
+      password: values.password,
+    };
 
     const lurl = "http://localhost:8080/login";
 
     let user = await axios.post(lurl, values);
-    console.log(user.data)
-   console.log(user.data.userId)
-   let userId = parseInt(user.data.userId)
-    const formdata = new FormData()
+    console.log(user.data);
+    console.log(user.data.userId);
+    let userId = parseInt(user.data.userId);
+    const formdata = new FormData();
 
-    formdata.append("id",userId)
-    formdata.append("profilePic",selectedFile)
+    formdata.append("id", userId);
+    formdata.append("profilePic", selectedFile);
     console.log(formdata);
-    let url = "http://localhost:8080/upload-profilepic"
-    let status = await axios.post(url,formdata)
+    let url = "http://localhost:8080/upload-profilepic";
+    let status = await axios.post(url, formdata);
     console.log(status);
   };
 
-  const getFile = (e) => {
-   
-   
-  };
+  const getFile = (e) => {};
 
   return (
     <>
@@ -144,7 +140,6 @@ console.log(values.password)
             <FormInput
               key={input.id}
               {...input}
-         
               value={values[input.name]}
               onChange={onChange}
             />
@@ -158,9 +153,11 @@ console.log(values.password)
           <div>
             <button className="regbutton">Upload</button>
           </div>
-        <p className="my-0 w-100 text-center p-2"> Already registered? <Link to="/"> Login here</Link></p>
+          <p className="my-0 w-100 text-center p-2">
+            {" "}
+            Already registered? <Link to="/"> Login here</Link>
+          </p>
         </form>
-
       </div>
     </>
   );

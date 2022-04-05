@@ -146,7 +146,7 @@ const Input = styled.input`
 `;
 const Navbar = () => {
   return (
-    <Container>
+    <Container className="h-100">
       <Wrapper>
         <Left>
           <img style={{ width: "54px", margin: "2px" }} src={Img}></img>

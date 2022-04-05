@@ -11,6 +11,7 @@ import AddProductsAdmin from "./Pages/AddProductsAdmin";
 // import CartPage from "./Pages/CartPage";
 import UpdateProdcutsAdmin from "./Pages/UpdateProdcutsAdmin";
 import OTPBox from "./components/OTPBox";
+import RazorPay from "./components/RazorPay";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
 
             <Route path="/add" element={<AddP></AddP>}></Route>
             <Route path="/tryon" element={<TryOn></TryOn>}></Route>
+            <Route path="/payment" element={<RazorPay></RazorPay>}></Route>
           </Routes>
         </div>
       </Router>
