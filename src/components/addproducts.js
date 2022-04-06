@@ -24,7 +24,7 @@ export default function AddP() {
       params: {
         store: "US",
         offset: "0",
-        categoryId: "11318",
+        categoryId: "5229",
         limit: "48",
         country: "US",
         sort: "freshness",
@@ -49,7 +49,8 @@ export default function AddP() {
 
         let myset = new Set();
 
-        let j = 47;
+        let j = 45;
+
         for (let i = j; i <= j; i++) {
           // console.log("hello");
           productObj.name = response.data.products[i].name;
@@ -60,9 +61,9 @@ export default function AddP() {
           // console.log("bye");
           if (!myset.has(productObj.brand)) {
             myset.add(productObj.brand);
-            // console.log(myset);
+            console.log(myset);
             arr[k++] = i;
-            // console.log(arr);
+            console.log(arr);
             getProductdetails(pid, productObj);
           }
         }
@@ -107,7 +108,7 @@ export default function AddP() {
   };
 
   let postProduct = (productObj) => {
-    let url = "http://localhost:8080/add-product";
+    let url = "http://localhost:8080/add";
 
     axios
       .post(url, productObj)

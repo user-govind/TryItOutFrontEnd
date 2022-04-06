@@ -6,18 +6,38 @@ import { Markup } from "interweave";
 import { mobile } from "../components/responsive";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function OneProduct({ product, setproduct }) {
   let navigate = useNavigate();
 
   var [product, setproduct] = useState({});
 
+  const [quantity, setquantity] = useState(1);
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
-    console.log("hello");
     let products = JSON.parse(sessionStorage.getItem("productId"));
     setproduct(products);
   }, []);
+
+  let AddProductToCart = async () => {
+    let url = "http://localhost:8080/add-product-cart";
+    let body = {
+      productid: product.productId,
+      quantity: quantity,
+      userid: JSON.parse(sessionStorage.getItem("UserId")),
+    };
+
+    try {
+      let res = await axios.post(url, body);
+      if (res.data) {
+        navigate("/cart");
+      }
+    } catch (e) {
+      alert("Product is not added to cart");
+    }
+  };
 
   <Markup content={product.description} />;
   let description = product.description;
@@ -79,6 +99,18 @@ export default function OneProduct({ product, setproduct }) {
           <div dangerouslySetInnerHTML={{ __html: description }} />
         </div>
         <div>Status : In stock</div>
+        <label htmlFor="" className="fs-3 text-black">
+          Qunatity :
+        </label>
+        <input
+          className="border-2 mx-3"
+          type="number"
+          value={quantity}
+          onChange={(e) => {
+            setquantity(e.target.value);
+          }}
+          required
+        />
         <FilterContainer>
           <Filter>
             <FilterTitle>Color</FilterTitle>
@@ -99,13 +131,15 @@ export default function OneProduct({ product, setproduct }) {
         </FilterContainer>
 
         <div className="my-5 d-flex justify-content-evenly justify-content-between ">
-          <button className="btn btn-lg btn-warning">Try On</button>
           <button
             className="btn btn-lg btn-warning"
             onClick={() => {
-              navigate("/cart");
+              navigate("/tryon");
             }}
           >
+            Try On
+          </button>
+          <button className="btn btn-lg btn-warning" onClick={AddProductToCart}>
             Add to cart
           </button>
         </div>

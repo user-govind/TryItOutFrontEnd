@@ -93,11 +93,15 @@ export default function Register() {
 
     sessionStorage.setItem("User", JSON.stringify(values));
 
+    console.log(values.email);
+    let res;
     if (
-      (await axios.get("http://localhost:8080/send-OTP/" + values.email)).data
-    )
+      (res = (await axios.get("http://localhost:8080/send-OTP/" + values.email))
+        .data)
+    ) {
+      console.log(res);
       navigate("/otpbox");
-    else alert("Enter valid details");
+    } else alert("Enter valid details");
   };
 
   const onChange = (e) => {
@@ -129,7 +133,9 @@ export default function Register() {
     console.log(status);
   };
 
-  const getFile = (e) => {};
+  const getFile = (e) => {
+    setSelectedFile(e.target.files[0]);
+  };
 
   return (
     <>

@@ -42,8 +42,9 @@ export default function Login() {
     const url = "http://localhost:8080/login";
 
     let user = await axios.post(url, values);
-
+    console.log(user.data);
     if (user != null) {
+      sessionStorage.setItem("UserId", JSON.stringify(user.data.userId));
       navigate("/home");
     } else navigate("login");
   };

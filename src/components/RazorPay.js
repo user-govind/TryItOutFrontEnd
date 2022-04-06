@@ -56,9 +56,9 @@ export default function RazorPay() {
             alert("Payment succefull!!");
           },
           prefill: {
-            name: "Anirudh Jwla",
-            email: "anirudh@gmail.com",
-            contact: "9999999999",
+            name: "",
+            email: "",
+            contact: "",
           },
           notes: {
             address: "tryitoutpvtlimted",

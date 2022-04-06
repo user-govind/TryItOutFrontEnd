@@ -12,6 +12,9 @@ import AddProductsAdmin from "./Pages/AddProductsAdmin";
 import UpdateProdcutsAdmin from "./Pages/UpdateProdcutsAdmin";
 import OTPBox from "./components/OTPBox";
 import RazorPay from "./components/RazorPay";
+import UserProfile from "./Pages/UserProfile";
+import OrderHistory from "./Pages/OrderHistory";
+import AdminProductsDataTable from "./Pages/AdminProductsDataTable";
 
 function App() {
   return (
@@ -43,6 +46,19 @@ function App() {
             <Route path="/add" element={<AddP></AddP>}></Route>
             <Route path="/tryon" element={<TryOn></TryOn>}></Route>
             <Route path="/payment" element={<RazorPay></RazorPay>}></Route>
+            <Route
+              path="/admin/allproducts"
+              element={<AdminProductsDataTable></AdminProductsDataTable>}
+            ></Route>
+            <Route
+              path="/user-profile"
+              element={<UserProfile></UserProfile>}
+            ></Route>
+
+            <Route
+              path="/your-orders"
+              element={<OrderHistory></OrderHistory>}
+            ></Route>
           </Routes>
         </div>
       </Router>
