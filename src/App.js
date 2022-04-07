@@ -15,6 +15,7 @@ import RazorPay from "./components/RazorPay";
 import UserProfile from "./Pages/UserProfile";
 import OrderHistory from "./Pages/OrderHistory";
 import AdminProductsDataTable from "./Pages/AdminProductsDataTable";
+import CartPage from "./Pages/CartPage";
 
 function App() {
   return (
@@ -30,7 +31,7 @@ function App() {
               path="/product"
               element={<ProductDescription></ProductDescription>}
             ></Route>
-            {/* <Route path="/cart" element={<CartPage></CartPage>}></Route> */}
+            <Route path="/cart" element={<CartPage></CartPage>}></Route>
 
             <Route path="/otpbox" element={<OTPBox></OTPBox>}></Route>
 

@@ -15,6 +15,10 @@ export default function OneProduct({ product, setproduct }) {
 
   const [quantity, setquantity] = useState(1);
 
+  const [color, setcolor] = useState("");
+
+  const [size, setsize] = useState("");
+
   useEffect(() => {
     window.scrollTo({ top: 0 });
     let products = JSON.parse(sessionStorage.getItem("productId"));
@@ -27,6 +31,8 @@ export default function OneProduct({ product, setproduct }) {
       productid: product.productId,
       quantity: quantity,
       userid: JSON.parse(sessionStorage.getItem("UserId")),
+      colour: color,
+      size: size,
     };
 
     try {
@@ -114,11 +120,33 @@ export default function OneProduct({ product, setproduct }) {
         <FilterContainer>
           <Filter>
             <FilterTitle>Color</FilterTitle>
-            <FilterColor color="black" />
-            <FilterColor color="darkblue" />
-            <FilterColor color="gray" />
+            <FilterColor
+              onClick={() => {
+                setcolor("Red");
+                console.log(color);
+              }}
+              color="Red"
+            />
+            <FilterColor
+              onClick={() => {
+                setcolor("Yellow");
+                console.log(color);
+              }}
+              color="Yellow"
+            />
+            <FilterColor
+              onClick={() => {
+                setcolor("Pink");
+                console.log(color);
+              }}
+              color="Pink"
+            />
           </Filter>
-          <Filter>
+          <Filter
+            onClick={(e) => {
+              setsize(e.target.value);
+            }}
+          >
             <FilterTitle>Size</FilterTitle>
             <FilterSize>
               <FilterSizeOption>XS</FilterSizeOption>

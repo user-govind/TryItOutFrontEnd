@@ -10,6 +10,7 @@ export default function CartPage() {
       <div className="cartBody carthtml">
         <Cart></Cart>
       </div>
+      <Footer></Footer>
     </div>
   );
 }

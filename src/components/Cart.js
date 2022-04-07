@@ -1,18 +1,47 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import "../stylesheets/cart.css";
-import { products } from "./products";
+// import { Products } from "./products";
+import { useState } from "react";
+import axios from "axios";
 import ContextCart from "./ContextCart";
 import { reducer } from "./reducer";
 
 export const CartContext = createContext();
 
-const initialState = {
-  item: products,
-  totalAmount: 0,
-  totalItem: 0,
-};
-
 const Cart = () => {
+  const [Products, setProducts] = useState([]);
+  // console.log("hee");
+  useEffect(async () => {
+    let url = "http://localhost:8080/get-all-cartProducts/" + 3;
+
+    let res = await axios.post(url, {});
+    //console.log(res.data);
+    setProducts(res.data);
+  }, []);
+  const [products, setproducts] = useState([]);
+
+  Products.map(
+    (item, index) =>
+      (products[index] = {
+        id: item.productId,
+        title: item.brand,
+        description: item.name,
+        img: "http://" + item.productImg,
+        quantity: item.quantity,
+        price: item.price,
+        size: item.size,
+        colour: item.colour,
+      })
+  );
+
+  console.log(products);
+
+  const initialState = {
+    item: products,
+    totalAmount: 0,
+    totalItem: 0,
+  };
+
   // const [item, setItem] = useState(products);
   const [state, dispatch] = useReducer(reducer, initialState);
 

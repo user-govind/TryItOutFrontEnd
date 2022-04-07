@@ -4,21 +4,25 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Mulish;
+  font-family: Mulish; 
 }
-html {
+
+/*
+.other {
   font-size: 55.5%;
+  background-color: #e7e2e2;
 }
-:root {
+*/
+.rootclass {
   --main-color: #333;
-  --primary-color: #838181;
+  --primary-color: #828183;
   --icon-color: #525252;
 }
 
-i {
+.iclass {
   width: 2rem;
   height: 2rem;
-} 
+}
 
 .fa,
 .fas {
@@ -26,16 +30,17 @@ i {
   display: grid;
   place-items: center;
   font-size: 1.6rem;
+  
   cursor: pointer;
 }
 
-.cartBody {
+.body {
   width: 80%;
   height: 100vh;
   margin: auto;
 }
 
-.cartHeader {
+.headerclass {
   width: 100%;
   line-height: 10rem;
   display: grid;
@@ -43,7 +48,7 @@ i {
   border-bottom: 0.1rem solid #9a9191;
   transform: rotate(-0.05deg);
   margin-bottom: 7rem;
-} 
+}
 
 .continue-shopping {
   display: flex;
@@ -58,6 +63,7 @@ i {
 
 .continue-shopping h3 {
   font-size: 2rem;
+  font-size: 150%;
   text-transform: capitalize;
   color: var(--main-color);
   margin-left: 1.5rem;
@@ -100,6 +106,7 @@ i {
   font-style: normal;
   font-weight: bold;
   font-size: 3rem;
+  font-size: 150%;
   text-transform: capitalize;
   color: rgba(41, 41, 41, 1);
   margin-bottom: 1rem;
@@ -109,6 +116,7 @@ i {
   font-style: normal;
   font-weight: normal;
   font-size: 1.8rem;
+  font-size: 100%;
   text-transform: capitalize;
   color: var(--main-color);
   margin-bottom: 5rem;
@@ -124,7 +132,7 @@ i {
 .main-cart-section .cart-items {
   width: 100%;
   height: 62rem;
-  background: rgb(226, 230, 193);
+  background: rgb(255, 255, 255);
   box-shadow: rgba(0, 0, 0, 0.08) 0rem 0.4rem 1.2rem;
   border-radius: 2rem;
   margin: auto;
@@ -153,10 +161,11 @@ i {
 }
 
 .items-info .product-img img {
-  width: 16rem;
+  width: 13rem;
   height: 11rem;
-  filter: drop-shadow(0rem 0.4rem 1rem #f1f7ff);
+  filter: drop-shadow(0rem 0.4rem 1rem #f1f2ff);
   border-radius: 1rem;
+  margin-right: 60px;
 }
 
 .items-info .title {
@@ -169,6 +178,7 @@ i {
   font-style: normal;
   font-weight: bold;
   font-size: 2.2rem;
+  font-size: 120%;
   display: flex;
   align-items: center;
   text-transform: capitalize;
@@ -179,6 +189,7 @@ i {
   font-style: normal;
   font-weight: normal;
   font-size: 1.8rem;
+  font-size: 100%;
   display: flex;
   align-items: center;
   text-transform: capitalize;
@@ -207,6 +218,7 @@ i {
   font-style: normal;
   font-weight: normal;
   font-size: 1.6rem;
+  font-size: 100%;
   text-align: center;
   text-transform: capitalize;
   color: var(--primary-color);
@@ -230,6 +242,7 @@ i {
   font-style: normal;
   font-weight: bold;
   font-size: 2rem;
+  font-size: 120%;
   text-transform: capitalize;
   color: var(--main-color);
 }
@@ -255,6 +268,7 @@ i {
 .card-total h3 {
   font-style: 200;
   font-size: 2.58rem;
+  font-size: 150%;
   line-height: 3.2rem;
   text-transform: capitalize;
   color: #606166;
@@ -264,6 +278,7 @@ i {
   font-style: normal;
   font-weight: bold;
   font-size: 2.8rem;
+  font-size: 100%;
   line-height: 3.2rem;
   text-transform: capitalize;
   color: #000000;
@@ -273,6 +288,7 @@ i {
 .card-total button {
   border: none;
   font-size: 1.6rem;
+  font-size: 100%;
   padding: 1rem 3rem;
   color: #fff;
   background-color: #349bf3;
@@ -316,16 +332,18 @@ i {
 
 /* responsive media queries  */
 
+/*
 @media (max-width: 968px) {
   html {
     font-size: 50%;
   }
 }
-
+*/
 @media (max-width: 768px) {
   .continue-shopping h3 {
     margin-left: 0;
     font-size: 1.85rem;
+    
   }
 
   .items-info {
@@ -344,8 +362,10 @@ i {
 
   .items-info .product-img {
     width: 100%;
+  
     text-align: center;
     margin-bottom: 2rem;
+    
   }
 
   .add-minus-quantity {

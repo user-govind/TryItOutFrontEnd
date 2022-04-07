@@ -6,6 +6,15 @@ import { useEffect } from "react";
 export default function RazorPay() {
   const [amount, setamount] = useState();
 
+  let resBody = {
+    paymentId: "",
+    orderId: "",
+    signature: "",
+    amount: amount,
+    status: "",
+    userId: JSON.parse(sessionStorage.getItem("UserId")),
+  };
+
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -26,6 +35,15 @@ export default function RazorPay() {
 
   let changeHandle = (e) => {
     setamount(e.target.value);
+  };
+
+  let PaymentRecord = async () => {
+    let url = "http://localhost:8080/order-payment";
+
+    console.log(resBody);
+    let res = await axios.post(url, resBody);
+
+    console.log(res.data);
   };
 
   let payNow = async (e) => {
@@ -53,12 +71,18 @@ export default function RazorPay() {
             console.log(response.razorpay_payment_id);
             console.log(response.razorpay_order_id);
             console.log(response.razorpay_signature);
+
+            resBody.signature = response.razorpay_signature;
+            resBody.paymentId = response.razorpay_payment_id;
+            resBody.orderId = response.razorpay_order_id;
+            resBody.status = "Success";
+            PaymentRecord();
             alert("Payment succefull!!");
           },
           prefill: {
-            name: "",
-            email: "",
-            contact: "",
+            name: "govind",
+            email: "alsdj@gmail.com",
+            contact: "1020304050",
           },
           notes: {
             address: "tryitoutpvtlimted",
@@ -76,6 +100,8 @@ export default function RazorPay() {
           console.log(response.error.reason);
           console.log(response.error.metadata.order_id);
           console.log(response.error.metadata.payment_id);
+          resBody.status = "Failed";
+          PaymentRecord();
         });
 
         rzp1.open();
