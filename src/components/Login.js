@@ -45,6 +45,13 @@ export default function Login() {
     console.log(user.data);
     if (user != null) {
       sessionStorage.setItem("UserId", JSON.stringify(user.data.userId));
+      let res = (
+        await axios.get(
+          "http://localhost:8080/get-userCart/" + user.data.userId
+        )
+      ).data;
+
+      sessionStorage.setItem("CartId", JSON.stringify(res));
       navigate("/home");
     } else navigate("login");
   };

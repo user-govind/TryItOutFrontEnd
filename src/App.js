@@ -8,14 +8,16 @@ import TryOn from "./components/TryOn";
 import ProductDescription from "./Pages/ProductDescription";
 import Otpcheck from "./components/otpcheck";
 import AddProductsAdmin from "./Pages/AddProductsAdmin";
-// import CartPage from "./Pages/CartPage";
+import CartPage from "./Pages/CartPage";
 import UpdateProdcutsAdmin from "./Pages/UpdateProdcutsAdmin";
 import OTPBox from "./components/OTPBox";
 import RazorPay from "./components/RazorPay";
+import AddressForm from "./components/AddressForm";
 import UserProfile from "./Pages/UserProfile";
 import OrderHistory from "./Pages/OrderHistory";
 import AdminProductsDataTable from "./Pages/AdminProductsDataTable";
-import CartPage from "./Pages/CartPage";
+import AdminUpdateProdus from "./Pages/AdminUpdateProdus";
+import AddressPage from "./Pages/AddressPage";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
             <Route path="/" element={<Login></Login>}></Route>
             <Route path="/register" element={<Register />}></Route>
             <Route path="/otp" element={<Otpcheck />}></Route>
+            <Route path="/Address-Form" element={<AddressPage />}></Route>
             <Route path="/home" element={<Home></Home>}></Route>
             <Route
               path="/product"
@@ -39,14 +42,18 @@ function App() {
               path="/add-products"
               element={<AddProductsAdmin></AddProductsAdmin>}
             ></Route>
-            <Route
+            {/* <Route
               path="/update-products"
               element={<UpdateProdcutsAdmin></UpdateProdcutsAdmin>}
-            ></Route>
+            ></Route> */}
 
             <Route path="/add" element={<AddP></AddP>}></Route>
             <Route path="/tryon" element={<TryOn></TryOn>}></Route>
             <Route path="/payment" element={<RazorPay></RazorPay>}></Route>
+            <Route
+              path="/admin/update-Products"
+              element={<AdminUpdateProdus />}
+            ></Route>
             <Route
               path="/admin/allproducts"
               element={<AdminProductsDataTable></AdminProductsDataTable>}

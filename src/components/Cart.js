@@ -10,12 +10,14 @@ export const CartContext = createContext();
 
 const Cart = () => {
   const [Products, setProducts] = useState([]);
-  // console.log("hee");
+
   useEffect(async () => {
-    let url = "http://localhost:8080/get-all-cartProducts/" + 3;
+    let url =
+      "http://localhost:8080/get-all-cartProducts/" +
+      JSON.parse(sessionStorage.getItem("CartId"));
 
     let res = await axios.post(url, {});
-    //console.log(res.data);
+
     setProducts(res.data);
   }, []);
   const [products, setproducts] = useState([]);
@@ -34,15 +36,12 @@ const Cart = () => {
       })
   );
 
-  console.log(products);
-
   const initialState = {
     item: products,
     totalAmount: 0,
     totalItem: 0,
   };
 
-  // const [item, setItem] = useState(products);
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // to delete the indv. elements from an Item Cart

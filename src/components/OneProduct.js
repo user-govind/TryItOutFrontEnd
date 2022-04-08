@@ -7,6 +7,7 @@ import { mobile } from "../components/responsive";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 export default function OneProduct({ product, setproduct }) {
   let navigate = useNavigate();
@@ -15,15 +16,18 @@ export default function OneProduct({ product, setproduct }) {
 
   const [quantity, setquantity] = useState(1);
 
-  const [color, setcolor] = useState("");
+  const [color, setcolor] = useState("Red");
 
-  const [size, setsize] = useState("");
+  const [size, setsize] = useState("L");
 
   useEffect(() => {
-    window.scrollTo({ top: 0 });
     let products = JSON.parse(sessionStorage.getItem("productId"));
     setproduct(products);
   }, []);
+
+  let amount;
+  if (product.price != null || quantity != null)
+    amount = product.price * quantity;
 
   let AddProductToCart = async () => {
     let url = "http://localhost:8080/add-product-cart";
@@ -33,15 +37,40 @@ export default function OneProduct({ product, setproduct }) {
       userid: JSON.parse(sessionStorage.getItem("UserId")),
       colour: color,
       size: size,
+      status: "Pending",
     };
 
     try {
       let res = await axios.post(url, body);
       if (res.data) {
+        Swal.fire({
+          icon: "success",
+          title: "Added to Cart :)",
+          text: "Please buy early we need money!!",
+        });
         navigate("/cart");
       }
     } catch (e) {
-      alert("Product is not added to cart");
+      Swal.fire({
+        icon: "error",
+        title: "Do it the write way",
+        text: "Try again!! Product is not added :(",
+      });
+    }
+  };
+
+  let payNow = async (e) => {
+    e.preventDefault();
+
+    if (amount == "")
+      Swal.fire("Enter Valid Amount", "Total mount is not valid", "question");
+    else {
+      sessionStorage.setItem("size", JSON.stringify(size));
+      sessionStorage.setItem("quantity", quantity);
+      sessionStorage.setItem("amount", amount);
+      sessionStorage.setItem("colour", JSON.stringify(color));
+      sessionStorage.setItem("productBuyId", product.productId);
+      navigate("/address-form");
     }
   };
 
@@ -171,12 +200,7 @@ export default function OneProduct({ product, setproduct }) {
             Add to cart
           </button>
         </div>
-        <button
-          className="btn btn-lg btn-primary w-100"
-          onClick={() => {
-            navigate("/payment");
-          }}
-        >
+        <button className="btn btn-lg btn-primary w-100" onClick={payNow}>
           Buy Now
         </button>
       </div>
