@@ -52,6 +52,7 @@ export default function AddP() {
         let j = 45;
 
         for (let i = 10; i <= 14; i++) {
+
           // console.log("hello");
           productObj.name = response.data.products[i].name;
           productObj.brand = response.data.products[i].brandName;
