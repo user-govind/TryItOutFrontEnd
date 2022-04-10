@@ -74,7 +74,11 @@ export default function ProductsDataTable() {
       name: "Image",
       selector: (row) => (
         <img
-          src={"https://" + row.productImg}
+          src={
+            row.productImg.startsWith("images")
+              ? "http://" + row.productImg
+              : require("../Product-Images/" + row.productImg)
+          }
           alt={row.category}
           height={80}
           width={80}

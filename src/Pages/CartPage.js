@@ -9,7 +9,7 @@ export default function CartPage() {
   useEffect(() => {
     let userPresent = JSON.parse(sessionStorage.getItem("UserId"));
     let userRole = JSON.parse(sessionStorage.getItem("RoleId"));
-    console.log(userPresent);
+
     if (userPresent == null || userRole != 1) {
       navigate("/");
     }

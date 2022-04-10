@@ -66,20 +66,24 @@ function Adminadd() {
         title: "Try again",
       });
     } else {
-      let product = new FormData();
+      let productDto = new FormData();
 
-      product.append("Name", productName);
-      product.append("price", productprice);
-      product.append("quantity", productquantity);
-      product.append("Description", productDescriptiion);
-      product.append("category", productcategory);
-      product.append("colour", productcolor);
-      product.append("brand", productbrand);
-      product.append("gender", gender);
-      product.append("productImg", selectedFile);
+      productDto.append("Name", productName);
+      productDto.append("price", productprice);
+      productDto.append("quantity", productquantity);
+      productDto.append("Description", productDescriptiion);
+      productDto.append("category", productcategory);
+      productDto.append("colour", productcolor);
+      productDto.append("brand", productbrand);
+      productDto.append("gender", gender);
+      productDto.append("id", -1);
+      productDto.append("productImg", selectedFile);
       let status;
       try {
-        status = await axios.post("http://localhost:8080/add-product", product);
+        status = await axios.post(
+          "http://localhost:8080/add-product",
+          productDto
+        );
       } catch (e) {
         status = false;
       }
@@ -100,7 +104,7 @@ function Adminadd() {
     }
     setproductName("");
     setproductprice("");
-
+    setproductDescriptiion("");
     setproductcategory("");
     setproductquantity("");
     setproductcolor("");

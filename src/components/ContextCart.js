@@ -10,6 +10,8 @@ import Swal from "sweetalert2";
 const ContextCart = () => {
   const { item, clearCart, totalItem, totalAmount } = useContext(CartContext);
 
+  console.log(totalAmount);
+
   let cid = JSON.parse(sessionStorage.getItem("CartId"));
 
   const loadScript = (src) => {

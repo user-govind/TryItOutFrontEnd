@@ -21,7 +21,6 @@ const Cart = () => {
     setProducts(res.data);
   }, []);
   const [products, setproducts] = useState([]);
-
   Products.map(
     (item, index) =>
       (products[index] = {
@@ -38,8 +37,8 @@ const Cart = () => {
 
   const initialState = {
     item: products,
-    totalAmount: 0,
-    totalItem: 0,
+    totalAmount: 3698,
+    totalItem: 45,
   };
 
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -76,9 +75,7 @@ const Cart = () => {
   // we will use the useEffect to update the data
   useEffect(() => {
     dispatch({ type: "GET_TOTAL" });
-    // console.log("Awesome");
   }, [state.item]);
-
   return (
     <CartContext.Provider
       value={{ ...state, removeItem, clearCart, increment, decrement }}
