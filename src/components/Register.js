@@ -1,15 +1,21 @@
 import React from "react";
 import "../App.css";
 import FormInput from "./FormInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../stylesheets/Register.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/FormInput.css";
+import Swal from "sweetalert2";
 
 export default function Register() {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    sessionStorage.clear();
+  });
+
   const [values, setValues] = useState({
     username: "",
     email: "",
@@ -85,13 +91,11 @@ export default function Register() {
       required: true,
     },
   ];
-
-  const [focused, setFocused] = useState(false);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     sessionStorage.setItem("User", JSON.stringify(values));
+    sessionStorage.setItem("UserProfile", JSON.stringify(selectedFile));
 
     console.log(values.email);
     let res;
@@ -101,41 +105,46 @@ export default function Register() {
     ) {
       console.log(res);
       navigate("/otpbox");
-    } else alert("Enter valid details");
+    } else
+      Swal.fire(
+        "Enter Valid Details",
+        "Please check and proceed again",
+        "error"
+      );
   };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  const upload = async (e) => {
-    e.preventDefault();
-    console.log(values.email);
-    console.log(values.password);
-    let loginData = {
-      email: values.email,
-      password: values.password,
-    };
+  // const upload = async (e) => {
+  //   e.preventDefault();
+  //   console.log(values.email);
+  //   console.log(values.password);
+  //   let loginData = {
+  //     email: values.email,
+  //     password: values.password,
+  //   };
 
-    const lurl = "http://localhost:8080/login";
+  //   const lurl = "http://localhost:8080/login";
 
-    let user = await axios.post(lurl, values);
-    console.log(user.data);
-    console.log(user.data.userId);
-    let userId = parseInt(user.data.userId);
-    const formdata = new FormData();
+  //   let user = await axios.post(lurl, values);
+  //   console.log(user.data);
+  //   console.log(user.data.userId);
+  //   let userId = parseInt(user.data.userId);
+  //   const formdata = new FormData();
 
-    formdata.append("id", userId);
-    formdata.append("profilePic", selectedFile);
-    console.log(formdata);
-    let url = "http://localhost:8080/upload-profilepic";
-    let status = await axios.post(url, formdata);
-    console.log(status);
-  };
+  //   formdata.append("id", userId);
+  //   formdata.append("profilePic", selectedFile);
+  //   console.log(formdata);
+  //   let url = "http://localhost:8080/upload-profilepic";
+  //   let status = await axios.post(url, formdata);
+  //   console.log(status);
+  // };
 
-  const getFile = (e) => {
-    setSelectedFile(e.target.files[0]);
-  };
+  // const getFile = (e) => {
+  //   setSelectedFile(e.target.files[0]);
+  // };
 
   return (
     <>
@@ -152,7 +161,7 @@ export default function Register() {
           ))}
           <button className="regbutton">Register</button>
         </form>
-        <form className="regform" onSubmit={upload}>
+        {/* <form className="regform" onSubmit={upload}>
           <label htmlFor="">Upload your profile pic</label>
           <br></br>
           <input className="formInput" type="file" onChange={getFile} />
@@ -163,7 +172,7 @@ export default function Register() {
             {" "}
             Already registered? <Link to="/"> Login here</Link>
           </p>
-        </form>
+        </form> */}
       </div>
     </>
   );

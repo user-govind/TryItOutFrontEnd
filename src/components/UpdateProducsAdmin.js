@@ -1,4 +1,4 @@
-import React, { useState, Component } from "react";
+import React, { useState, Component, useEffect } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,22 +7,28 @@ import axios from "axios";
 import "../stylesheets/AdminAdd.css";
 import { lightBlue } from "@material-ui/core/colors";
 import { NavDropdown } from "react-bootstrap";
+import { Navigate, useNavigate } from "react-router-dom";
 
-function Adminadd() {
-  const [productName, setproductName] = useState("");
-  const [productprice, setproductprice] = useState("");
-  const [productquantity, setproductquantity] = useState();
-
-  const [productcategory, setproductcategory] = useState("");
-  const [gender, setgender] = useState("");
-  const [productcolor, setproductcolor] = useState("");
-  const [productbrand, setproductbrand] = useState("");
-  const [productDescriptiion, setproductDescriptiion] = useState("");
-  const [selectedFile, setSelectedFile] = useState(null);
+function UpdateProducsAdmin() {
+  let navigate = useNavigate();
+  const product = JSON.parse(sessionStorage.getItem("UpdateProduct"));
 
   const changeproductName = (event) => {
     setproductName(event.target.value);
   };
+
+  const [productName, setproductName] = useState(product.name);
+  const [productprice, setproductprice] = useState(product.price);
+  const [productquantity, setproductquantity] = useState(product.quantity);
+
+  const [productcategory, setproductcategory] = useState(product.category);
+  const [gender, setgender] = useState(product.gender);
+  const [productcolor, setproductcolor] = useState(product.colour);
+  const [productbrand, setproductbrand] = useState(product.brand);
+  const [productDescriptiion, setproductDescriptiion] = useState(
+    product.description
+  );
+  const [selectedFile, setSelectedFile] = useState(null);
 
   const changeproductDescription = (e) => {
     setproductDescriptiion(e.target.value);
@@ -76,8 +82,9 @@ function Adminadd() {
       productDto.append("colour", productcolor);
       productDto.append("brand", productbrand);
       productDto.append("gender", gender);
-      productDto.append("id", -1);
       productDto.append("productImg", selectedFile);
+
+      productDto.append("id", product.productId);
       let status;
       try {
         status = await axios.post(
@@ -94,6 +101,8 @@ function Adminadd() {
           title: "product Added!!!",
           text: "You have been successfully added product",
         });
+
+        navigate("/admin/allproducts");
       } else {
         Swal.fire({
           icon: "error",
@@ -102,13 +111,6 @@ function Adminadd() {
         });
       }
     }
-    setproductName("");
-    setproductprice("");
-    setproductDescriptiion("");
-    setproductcategory("");
-    setproductquantity("");
-    setproductcolor("");
-    setproductbrand("");
   };
   let getfile = (e) => {
     console.log(e.target.value);
@@ -132,7 +134,7 @@ function Adminadd() {
                   className="col   fs-2 text-center"
                   style={{ color: "blue" }}
                 >
-                  Add Admin products
+                  Update Products
                 </div>
               </div>
               <div class="row justify-content-center">
@@ -226,6 +228,7 @@ function Adminadd() {
                             name="flexRadioDefault"
                             id="flexRadioDefault1"
                             value="Male"
+                            checked
                           ></input>
                           <label
                             className="form-check-label"
@@ -260,6 +263,7 @@ function Adminadd() {
                         style={{ width: "200px" }}
                         value={productcategory}
                         onChange={changeproductcategory}
+                        required
                       >
                         <option selected>Categories</option>
                         <option value="T-Shirt">T-Shirt</option>
@@ -296,23 +300,23 @@ function Adminadd() {
                         id="productfile"
                         name="filename"
                         onChange={getfile}
+                        required
                       ></input>
                     </div>
                     <br />
                     <input
                       type="submit"
-                      value="Submit"
+                      value="Update"
                       className="btn btn-primary text-center"
                     />
                   </form>
                 </div>
               </div>
             </div>
-            .0
           </div>
         </div>
       </div>
     </>
   );
 }
-export default Adminadd;
+export default UpdateProducsAdmin;
