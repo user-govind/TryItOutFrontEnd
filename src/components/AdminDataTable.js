@@ -21,8 +21,6 @@ export default function ProductsDataTable() {
     ).data;
     setProducts(productsList);
     setfilterProducts(productsList);
-
-    console.log(products);
   };
   let DeleteProduct = async (e) => {
     Swal.fire({

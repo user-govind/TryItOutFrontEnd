@@ -18,6 +18,7 @@ import OrderHistory from "./Pages/OrderHistory";
 import AdminProductsDataTable from "./Pages/AdminProductsDataTable";
 import AdminUpdateProdus from "./Pages/AdminUpdateProdus";
 import AddressPage from "./Pages/AddressPage";
+import AdminUserListPage from "./Pages/AdminUserListPage";
 
 function App() {
   return (
@@ -39,7 +40,7 @@ function App() {
             <Route path="/otpbox" element={<OTPBox></OTPBox>}></Route>
 
             <Route
-              path="/add-products"
+              path="/admin/add-product"
               element={<AddProductsAdmin></AddProductsAdmin>}
             ></Route>
             {/* <Route
@@ -57,6 +58,10 @@ function App() {
             <Route
               path="/admin/allproducts"
               element={<AdminProductsDataTable></AdminProductsDataTable>}
+            ></Route>
+            <Route
+              path="/admin/allUsers"
+              element={<AdminUserListPage></AdminUserListPage>}
             ></Route>
             <Route
               path="/user-profile"

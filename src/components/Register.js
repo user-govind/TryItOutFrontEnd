@@ -1,7 +1,7 @@
 import React from "react";
 import "../App.css";
 import FormInput from "./FormInput";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "../stylesheets/Register.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -11,6 +11,11 @@ import Swal from "sweetalert2";
 
 export default function Register() {
   let navigate = useNavigate();
+
+  useEffect(() => {
+    sessionStorage.clear();
+  });
+
   const [values, setValues] = useState({
     username: "",
     email: "",

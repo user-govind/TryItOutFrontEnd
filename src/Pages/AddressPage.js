@@ -1,9 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import AddressForm from "../components/AddressForm";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
 export default function AddressPage() {
+  let navigate = useNavigate();
+  useEffect(() => {
+    let userPresent = JSON.parse(sessionStorage.getItem("UserId"));
+    console.log(userPresent);
+    if (userPresent == null) {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <>
       <Navbar></Navbar>
