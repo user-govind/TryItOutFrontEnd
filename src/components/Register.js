@@ -35,7 +35,7 @@ export default function Register() {
       errorMessage:
         "First Name should be 3-16 characters and shouldn't include any special character!",
       label: "First Name",
-      pattern: "^[A-Za-z0-9]{3,16}$",
+      pattern: "^[A-Za-z]{3,16}$",
       required: true,
     },
     {
@@ -46,7 +46,7 @@ export default function Register() {
       errorMessage:
         "Last Name should be 3-16 characters and shouldn't include any special character!",
       label: "Last Name",
-      pattern: "^[A-Za-z0-9]{3,16}$",
+      pattern: "^[A-Za-z]{3,16}$",
       required: true,
     },
     {
@@ -54,10 +54,9 @@ export default function Register() {
       name: "mobile",
       type: "number",
       placeholder: "MobileNumber",
-      errorMessage:
-        "MobileNumber should be 10 characters and shouldn't include any special character!",
+      errorMessage: "Please enter valid Indian Mobile Number!",
       label: "Mobile Number",
-      pattern: "^[0-9]{10}$",
+      pattern: "^[7-9][0-9]{9}$", //MobileNumber should be of 10 characters and should starts from 7/8/9 (Indian Mobile No.)
       required: true,
     },
     {
