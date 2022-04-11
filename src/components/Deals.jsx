@@ -23,7 +23,6 @@ const Deals = () => {
 
       <marquee direction="right" behavior="fade" scrollamount="9">
         <span className="fs-3">
-          {" "}
           <strong>Today's Deal!!</strong> Free shipping over 800
         </span>
       </marquee>

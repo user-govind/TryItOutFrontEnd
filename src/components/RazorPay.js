@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 export default function RazorPay() {
   const [amount, setamount] = useState();
 
@@ -48,7 +49,8 @@ export default function RazorPay() {
 
   let payNow = async (e) => {
     e.preventDefault();
-    if (amount == "") alert("enter someting");
+    if (amount == "")
+      Swal.fire("Enter Valid Amount", "Total mount is not valid", "question");
     else {
       console.log("payment initiated");
       let body = {

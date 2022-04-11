@@ -8,6 +8,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const bull = (
   <Box
@@ -33,8 +34,8 @@ const OTPBox = () => {
       element.nextSibling.focus();
     }
   };
-  let navigatetoReg = () => {
-    navigate("/register");
+  let navigatetoLogin = () => {
+    navigate("/");
   };
 
   return (
@@ -95,11 +96,21 @@ const OTPBox = () => {
                               )
                             ).data
                           ) {
-                            navigatetoReg();
+                            Swal.fire({
+                              icon: "success",
+                              title: "Succefuly Registred :)",
+                              text: "Enjoy Trying out cloths and Buy them",
+                            });
+
+                            navigatetoLogin();
                           }
                         }
                       } else {
-                        alert("Enter OTP");
+                        Swal.fire({
+                          icon: "error",
+                          title: "Are you hacker? :)",
+                          text: "Enter a valid OTP!! You will get it on your email.",
+                        });
                       }
                     }}
                   >

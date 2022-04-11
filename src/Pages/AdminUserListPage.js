@@ -1,26 +1,25 @@
-import NavbarTryItOut from "../components/NavbarTryItOut";
 import React, { useEffect } from "react";
-import Cards from "../components/Cards";
-import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
-const OrderHistory = () => {
+import AdminUsersList from "../components/AdminUsersList";
+import Footer from "../components/Footer";
+import Navbar from "../components/Navbar";
+
+export default function AdminUserListPage() {
   let navigate = useNavigate();
   useEffect(() => {
     let userPresent = JSON.parse(sessionStorage.getItem("UserId"));
     let userRole = JSON.parse(sessionStorage.getItem("RoleId"));
     console.log(userPresent);
-    if (userPresent == null || userRole != 1) {
+    if (userPresent == null || userRole == 0) {
       navigate("/");
     }
   }, []);
 
   return (
-    <div>
-      <NavbarTryItOut></NavbarTryItOut>
-      <Cards></Cards>
+    <>
+      <Navbar></Navbar>
+      <AdminUsersList></AdminUsersList>
       <Footer></Footer>
-    </div>
+    </>
   );
-};
-
-export default OrderHistory;
+}

@@ -83,14 +83,16 @@
 // };
 
 // export default Navbar;
-
+import React from "react";
 import { Search, ShoppingCart } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
-import React from "react";
+import { useEffect } from "react";
 import styled from "styled-components";
 import { Form, FormControl, Button, Navbar } from "react-bootstrap";
 import Img from "../Images/tryitouttranslogo.png";
+
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
   height: 60px;
