@@ -1,23 +1,35 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-import { useState } from "react";
-import Navbar from "./Navbar";
-import Footer from "./Footer";
-import { style } from "@mui/system";
+import { useState, useEffect } from "react";
 
-export default function UserProfile() {
-  return (
-    <div>
-      {/* <Navbar /> */}
-      <ProfilePage></ProfilePage>
-      <Footer></Footer>
-    </div>
-  );
-}
+import Swal from "sweetalert2";
 
-function ProfilePage() {
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
+export default function ProfilePage() {
+  const [userInfo, setUserInfo] = useState({});
+
+  let navigate = useNavigate();
+
+  useEffect(async () => {
+    let url =
+      "http://localhost:8080/user-profile-info/" +
+      JSON.parse(sessionStorage.getItem("UserId"));
+
+    console.log(url);
+
+    let res = await axios.post(url, {});
+    alert(res.data);
+    console.log(res.data);
+    setUserInfo(res.data);
+  }, []);
+
+  const [file, setfile] = useState(null);
+
   const [feildStatus, setfeildStatus] = useState("disabled");
+
   return (
     <div>
       <div className="container">
@@ -26,13 +38,15 @@ function ProfilePage() {
             <div className="row mt-3">
               <div className="d-flex flex-column align-items-center text-center">
                 <form>
-                  <Photo className="image w-50"></Photo>
+                  <Photo className="image w-50" user={userInfo}></Photo>
                   {/* <img
                     className="image w-50"
                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                   ></img> */}
-                  <div class="font-weight-bold mt-4">Govind</div>
-                  <div class="text-black-50">govind.k@gmail.com</div>
+                  <div class="font-weight-bold mt-4">
+                    {userInfo.firstName + " " + userInfo.lastName}
+                  </div>
+                  <div class="text-black-50">{userInfo.email}</div>
                   <span>____________________ </span>
                 </form>
               </div>
@@ -258,13 +272,27 @@ function ProfilePage() {
   );
 }
 
-function Photo() {
+function Photo({ user }) {
+  console.log(user);
+  if (user.userImg == undefined || user.userImg == null) {
+    user.userImg = "defalutUserImg.png";
+  }
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
-  const handleImageUpload = (e) => {
-    const [file] = e.target.files;
+  const handleImageUpload = async (e) => {
+    const file = e.target.files[0];
+    console.log(file);
     if (file) {
+      let userId = JSON.parse(sessionStorage.getItem("UserId"));
+      const formdata = new FormData();
+
+      formdata.append("id", userId);
+      formdata.append("profilePic", file);
+      console.log(formdata);
+      let url = "http://localhost:8080/upload-profilepic";
+      let status = await axios.post(url, formdata);
+      console.log(status);
       const reader = new FileReader();
       const { current } = uploadedImage;
       current.file = file;
@@ -310,12 +338,10 @@ function Photo() {
             position: "acsolute",
             borderRadius: "50%",
           }}
+          src={require("../User-ProfilePics/" + user.userImg)}
         />
       </div>
       Click to upload Image
     </div>
   );
 }
-
-const rootElement = document.getElementById("root");
-ReactDOM.render(<Photo />, rootElement);
