@@ -1,9 +1,44 @@
 import React, { useContext } from "react";
 import { CartContext } from "./Cart";
+import axios from "axios";
 
 const Items = ({ id, description, title, img, price, quantity }) => {
-  const { removeItem, increment, decrement } = useContext(CartContext);
+  //const {} = useContext(CartContext);
 
+  const removeItem = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      productId: JSON.parse(sessionStorage.getItem("ProductID")),
+    };
+    axios
+      .put(`http://localhost:8080/delete-UserProduct`, body)
+      .then((response) => {
+        console.log("product deleted");
+      });
+  };
+  const increment = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      quantity: JSON.parse(sessionStorage.getItem("ProductQuantity")),
+    };
+    axios
+      .put(`http://localhost:8080/plus-UserProduct`, body)
+      .then((response) => {
+        console.log("increased by 1");
+      });
+  };
+
+  const decrement = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      quantity: JSON.parse(sessionStorage.getItem("ProductQuantity")),
+    };
+    axios
+      .put(`http://localhost:8080/minus-UserProduct`, body)
+      .then((response) => {
+        console.log("decreased by 1");
+      });
+  };
   return (
     <>
       <div className="items-info">
@@ -29,7 +64,8 @@ const Items = ({ id, description, title, img, price, quantity }) => {
         <div className="remove-item">
           <i
             className="fas fa-trash-alt remove"
-            onClick={() => removeItem(id)}></i>
+            onClick={() => removeItem(id)}
+          ></i>
         </div>
       </div>
 

@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import ProfilePage from "../components/ProfilePage";
 
 export default function UserProfile() {
@@ -17,7 +17,7 @@ export default function UserProfile() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <ProfilePage></ProfilePage>
       <Footer></Footer>
     </>

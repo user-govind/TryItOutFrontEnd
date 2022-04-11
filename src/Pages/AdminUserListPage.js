@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AdminUsersList from "../components/AdminUsersList";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 
 export default function AdminUserListPage() {
   let navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function AdminUserListPage() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <AdminUsersList></AdminUsersList>
       <Footer></Footer>
     </>

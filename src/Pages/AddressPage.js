@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import AddressForm from "../components/AddressForm";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 
 export default function AddressPage() {
   let navigate = useNavigate();
@@ -17,7 +17,7 @@ export default function AddressPage() {
 
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <div className="container-fluid ">
         <div
           className="row justify-content-center align-content-center"

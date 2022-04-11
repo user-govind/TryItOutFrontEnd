@@ -1,12 +1,12 @@
 import React from "react";
 import AdminUpdate from "../components/AdminUpdateProducts";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 
 export default function UpdateProdcutsAdmin() {
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <AdminUpdate></AdminUpdate>
       <Footer></Footer>
     </div>

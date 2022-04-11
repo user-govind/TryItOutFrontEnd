@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Adminadd from "../components/AdminAddProduct";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 
 export default function AddProductsAdmin() {
   let navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function AddProductsAdmin() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <Adminadd></Adminadd>
       <Footer></Footer>
     </>

@@ -1,5 +1,5 @@
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import React, { useEffect } from "react";
-import Navbar from "../components/Navbar";
 import Cards from "../components/Cards";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,7 @@ const OrderHistory = () => {
 
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <Cards></Cards>
       <Footer></Footer>
     </div>

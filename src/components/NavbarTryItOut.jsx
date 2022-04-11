@@ -88,8 +88,10 @@ import { Search, ShoppingCart } from "@material-ui/icons";
 import { Badge } from "@material-ui/core";
 import { useEffect } from "react";
 import styled from "styled-components";
-import { Form, FormControl, Button } from "react-bootstrap";
+import { Form, FormControl, Button, Navbar } from "react-bootstrap";
 import Img from "../Images/tryitouttranslogo.png";
+
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.div`
@@ -145,7 +147,7 @@ const Input = styled.input`
   border: none;
   text-align: center;
 `;
-const Navbar = () => {
+const NavbarTryItOut = () => {
   return (
     <Container className="h-100">
       <Wrapper>
@@ -161,11 +163,31 @@ const Navbar = () => {
               className="me-2"
               aria-label="Search"
             />
+
             <Button variant="outline-dark">Search</Button>
           </Form>
         </Center>
         <Right>
-          <MenuItem>SIGN IN</MenuItem>
+          <MenuItem>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              tag="a"
+              to="/"
+              action
+            >
+              SIGN IN
+            </Link>
+          </MenuItem>
+          <MenuItem>
+            <Link
+              style={{ textDecoration: "none", color: "black" }}
+              tag="a"
+              to="/"
+              action
+            >
+              LOG OUT
+            </Link>
+          </MenuItem>
           <MenuItem>
             <Badge badgeContent={4} color="primary">
               <ShoppingCart />
@@ -177,4 +199,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default NavbarTryItOut;

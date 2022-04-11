@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Displaycard from "../components/Displaycard";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import OneProduct from "../components/OneProduct";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function ProductDescription() {
@@ -18,7 +18,7 @@ export default function ProductDescription() {
   }, []);
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <OneProduct></OneProduct>
       <Displaycard></Displaycard>
       <Footer></Footer>

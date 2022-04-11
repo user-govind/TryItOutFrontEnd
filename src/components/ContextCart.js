@@ -8,7 +8,16 @@ import axios from "axios";
 import Swal from "sweetalert2";
 
 const ContextCart = () => {
-  const { item, clearCart, totalItem, totalAmount } = useContext(CartContext);
+  const { item, totalItem, totalAmount } = useContext(CartContext);
+
+  let clearCart = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartId")),
+    };
+    axios.put(`http://localhost:8080/clear-cart`, body).then((response) => {
+      console.log("empty cart!");
+    });
+  };
 
   console.log(totalAmount);
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import ProductsDataTable from "../components/AdminDataTable";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 export default function AdminProductsDataTable() {
@@ -15,7 +15,7 @@ export default function AdminProductsDataTable() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <ProductsDataTable></ProductsDataTable>
       <Footer></Footer>
     </>

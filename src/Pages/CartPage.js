@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cart from "../components/Cart";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 
 export default function CartPage() {
   let navigate = useNavigate();
@@ -16,7 +16,7 @@ export default function CartPage() {
   }, []);
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <div className="cartBody carthtml">
         <Cart></Cart>
       </div>
