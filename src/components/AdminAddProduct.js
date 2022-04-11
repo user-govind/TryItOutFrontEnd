@@ -1,7 +1,7 @@
 import React, { useState, Component } from "react";
 
 import "bootstrap/dist/css/bootstrap.css";
-import Navbar from "react-bootstrap/Navbar";
+import NavbarTryItOut from "react-bootstrap/Navbar";
 import Swal from "sweetalert2";
 import axios from "axios";
 import "../stylesheets/AdminAdd.css";

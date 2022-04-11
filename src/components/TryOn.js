@@ -7,7 +7,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import Navbar from "./Navbar";
+import NavbarTryItOut from "./NavbarTryItOut";
 import Tshirt from "../Images/Tshirt.png";
 import Footer from "./Footer";
 
@@ -117,7 +117,7 @@ export default function TryOn() {
   }
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
 
       <Sketch setup={setup} draw={draw} preload={preload}></Sketch>
     </div>

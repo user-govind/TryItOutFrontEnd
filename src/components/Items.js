@@ -1,8 +1,27 @@
 import React, { useContext } from "react";
 import { CartContext } from "./Cart";
+import axios from "axios";
 
 const Items = ({ id, description, title, img, price, quantity }) => {
-  const { removeItem, increment, decrement } = useContext(CartContext);
+  const {
+    removeItem = (id) => {
+      axios
+        .delete(`http://localhost:8080/delete-UserProduct`)
+        .then((response) => {
+          alert("deleted");
+        });
+    },
+    increment = (id) => {
+      axios.put(`http://localhost:8080/plus-UserProduct`).then((response) => {
+        console.log("increased by 1");
+      });
+    },
+    decrement = (id) => {
+      axios.put(`http://localhost:8080/minus-UserProduct`).then((response) => {
+        console.log("decreased by 1");
+      });
+    },
+  } = useContext(CartContext);
 
   return (
     <>
@@ -29,7 +48,8 @@ const Items = ({ id, description, title, img, price, quantity }) => {
         <div className="remove-item">
           <i
             className="fas fa-trash-alt remove"
-            onClick={() => removeItem(id)}></i>
+            onClick={() => removeItem(id)}
+          ></i>
         </div>
       </div>
 

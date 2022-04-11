@@ -1,11 +1,11 @@
 import React from "react";
 import ProductsDataTable from "../components/AdminDataTable";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import Footer from "../components/Footer";
 export default function AdminProductsDataTable() {
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <ProductsDataTable></ProductsDataTable>
       <Footer></Footer>
     </>

@@ -1,13 +1,13 @@
 import React from "react";
 
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import ProfilePage from "../components/ProfilePage";
 
 export default function UserProfile() {
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <ProfilePage></ProfilePage>
       <Footer></Footer>
     </>

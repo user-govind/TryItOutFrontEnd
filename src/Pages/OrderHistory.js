@@ -1,11 +1,11 @@
 import React from "react";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import Cards from "../components/Cards";
 import Footer from "../components/Footer";
 const OrderHistory = () => {
   return (
     <div>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <Cards></Cards>
       <Footer></Footer>
     </div>

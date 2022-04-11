@@ -3,9 +3,19 @@ import { Scrollbars } from "react-custom-scrollbars-2";
 import Items from "./Items";
 import { CartContext } from "./Cart";
 import Arrow from "../Images/arrow.png";
+import axios from "axios";
 
 const ContextCart = () => {
-  const { item, clearCart, totalItem, totalAmount } = useContext(CartContext);
+  const { item, totalItem, totalAmount } = useContext(CartContext);
+
+  let clearCart = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartId")),
+    };
+    axios.put(`http://localhost:8080/clear-cart`, body).then((response) => {
+      console.log("empty cart!");
+    });
+  };
 
   if (item.length === 0) {
     return (
