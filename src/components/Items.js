@@ -3,26 +3,42 @@ import { CartContext } from "./Cart";
 import axios from "axios";
 
 const Items = ({ id, description, title, img, price, quantity }) => {
-  const {
-    removeItem = (id) => {
-      axios
-        .delete(`http://localhost:8080/delete-UserProduct`)
-        .then((response) => {
-          alert("deleted");
-        });
-    },
-    increment = (id) => {
-      axios.put(`http://localhost:8080/plus-UserProduct`).then((response) => {
+  //const {} = useContext(CartContext);
+
+  const removeItem = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      productId: JSON.parse(sessionStorage.getItem("ProductID")),
+    };
+    axios
+      .put(`http://localhost:8080/delete-UserProduct`, body)
+      .then((response) => {
+        console.log("product deleted");
+      });
+  };
+  const increment = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      quantity: JSON.parse(sessionStorage.getItem("ProductQuantity")),
+    };
+    axios
+      .put(`http://localhost:8080/plus-UserProduct`, body)
+      .then((response) => {
         console.log("increased by 1");
       });
-    },
-    decrement = (id) => {
-      axios.put(`http://localhost:8080/minus-UserProduct`).then((response) => {
+  };
+
+  const decrement = () => {
+    let body = {
+      userCartId: JSON.parse(sessionStorage.getItem("CartID")),
+      quantity: JSON.parse(sessionStorage.getItem("ProductQuantity")),
+    };
+    axios
+      .put(`http://localhost:8080/minus-UserProduct`, body)
+      .then((response) => {
         console.log("decreased by 1");
       });
-    },
-  } = useContext(CartContext);
-
+  };
   return (
     <>
       <div className="items-info">

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar";
+import NavbarTryItOut from "../components/NavbarTryItOut";
 import UpdateProducsAdmin from "../components/UpdateProducsAdmin";
 
 export default function AdminUpdateProdus() {
@@ -16,7 +16,7 @@ export default function AdminUpdateProdus() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <NavbarTryItOut></NavbarTryItOut>
       <UpdateProducsAdmin></UpdateProducsAdmin>
       <Footer></Footer>
     </>

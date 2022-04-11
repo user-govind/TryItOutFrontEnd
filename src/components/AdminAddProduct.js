@@ -1,5 +1,4 @@
 import React, { useState, Component } from "react";
-
 import "bootstrap/dist/css/bootstrap.css";
 import NavbarTryItOut from "react-bootstrap/Navbar";
 import Swal from "sweetalert2";
