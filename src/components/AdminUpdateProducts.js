@@ -10,16 +10,22 @@ import { useNavigate } from "react-router-dom";
 function AdminUpdate() {
   const [productList, setproductList] = useState([]);
 
+  const [filterProductList, setfilterProductList] = useState([]);
+
   let navigate = useNavigate();
+
+  const [search, setsearch] = useState();
 
   let loadProducts = async () => {
     let products = (await axios.post("http://localhost:8080/all-products", {}))
       .data;
     setproductList(products);
+    setfilterProductList(products);
   };
 
   useEffect(async () => {
     loadProducts();
+    filterproducts();
   }, []);
 
   let DeleteProduct = async (e) => {
@@ -33,11 +39,62 @@ function AdminUpdate() {
     }
   };
 
+  let filterproducts = () => {
+    setsearch(JSON.parse(sessionStorage.getItem("Search")));
+    let words = search.split(" ");
+    console.log(words);
+    let result1, result2, result3;
+    let concatres;
+    words.forEach((element) => {
+      if (element.toLowerCase() == "for" || element.toLowerCase() == "and") {
+        return;
+      }
+
+      result1 = productList.filter((product) => {
+        return product.gender.toLowerCase().startsWith(element.toLowerCase());
+      });
+
+      result2 = productList.filter((product) => {
+        return product.name.toLowerCase().match(element.toLowerCase());
+      });
+
+      result3 = productList.filter((product) => {
+        return product.category.toLowerCase().match(element.toLowerCase());
+      });
+
+      console.log(result1);
+      concatres = result1.concat(result2).concat(result3);
+    });
+    let resSet = new Set();
+    let finalArr = [];
+
+    concatres.forEach((element) => {
+      if (!resSet.has(element)) {
+        finalArr.push(element);
+        console.log("prit thsi");
+      } else {
+        resSet.add(element);
+      }
+    });
+    console.log("final arr" + finalArr);
+    setfilterProductList(finalArr);
+
+    console.log(filterProductList);
+  };
+
   return (
     <div className="mx-5 my-4">
       <div className="alert alert-secondary">
+        <input
+          type="text"
+          value={search}
+          onChange={(e) => {
+            setsearch(e.target.value);
+          }}
+        />
+
         <Row xs={1} md={2} className="g-4 m-0 p-0">
-          {productList.map((item, index) => (
+          {filterProductList.map((item, index) => (
             <Col className="col col-md-3 my-3" style={{ maxHeight: "700px" }}>
               <Card className="h-100">
                 <Card.Img
@@ -56,7 +113,7 @@ function AdminUpdate() {
                       {"$ " + item.price}
                     </div>
                   </Card.Text>
-                  <div className="d-flex justify-content-evenly">
+                  {/* <div className="d-flex justify-content-evenly">
                     <Button
                       className="btn w-100 mx-2"
                       onClick={() => {
@@ -71,8 +128,7 @@ function AdminUpdate() {
                       onClick={DeleteProduct}
                     >
                       Delete
-                    </Button>
-                  </div>
+                    </Button> */}
                 </Card.Body>
               </Card>
             </Col>
