@@ -55,6 +55,8 @@ export default function Checkout() {
     loadScript("https://checkout.razorpay.com/v1/checkout.js");
   });
 
+  let [isDefault, setisDefault] = useState();
+
   let resBody = {
     paymentId: "",
     orderId: "",
@@ -169,13 +171,23 @@ export default function Checkout() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let isValid = formRef.current.reportValidity();
+    console.log(isDefault);
+    let body = {
+      address1: values.address1,
+      address2: values.address2,
+      city: values.city,
+      state: values.state,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      zip: values.zip,
+      country: values.country,
+      isDefault: isDefault,
+      uid: JSON.parse(sessionStorage.getItem("UserId")),
+    };
     if (isValid) {
       let res;
       try {
-        res = await axios.post(
-          "http://localhost:8080/add-User-Address",
-          values
-        );
+        res = await axios.post("http://localhost:8080/add-User-Address", body);
 
         if (res.data) {
           Swal.fire({
@@ -201,7 +213,6 @@ export default function Checkout() {
       }
     }
   };
-
   const [values, setValues] = useState({
     address1: "",
     address2: "",
@@ -333,8 +344,13 @@ export default function Checkout() {
                     control={
                       <Checkbox
                         color="secondary"
-                        name="saveAddress"
-                        value="yes"
+                        name="isDefault"
+                        value="true"
+                        onClick={() => {
+                          isDefault = isDefault
+                            ? setisDefault(false)
+                            : setisDefault(true);
+                        }}
                       />
                     }
                     label="Use this address for payment details"

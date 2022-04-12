@@ -43,10 +43,10 @@ function App() {
               path="/admin/add-product"
               element={<AddProductsAdmin></AddProductsAdmin>}
             ></Route>
-            {/* <Route
+            <Route
               path="/update-products"
               element={<UpdateProdcutsAdmin></UpdateProdcutsAdmin>}
-            ></Route> */}
+            ></Route>
 
             <Route path="/add" element={<AddP></AddP>}></Route>
             <Route path="/tryon" element={<TryOn></TryOn>}></Route>
