@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormInput from "./FormInput";
 import "../stylesheets/Login.css";
 import axios from "axios";
@@ -11,6 +11,10 @@ export default function Login() {
   const [values, setValues] = useState({
     email: "",
     password: "",
+  });
+
+  useEffect(() => {
+    sessionStorage.clear();
   });
 
   const inputs = [
@@ -42,10 +46,25 @@ export default function Login() {
     const url = "http://localhost:8080/login";
 
     let user = await axios.post(url, values);
-    console.log(user.data);
+
     if (user != null) {
       sessionStorage.setItem("UserId", JSON.stringify(user.data.userId));
-      navigate("/home");
+      let role = user.data.roleId.roleId;
+      sessionStorage.setItem("RoleId", JSON.stringify(role));
+
+      if (role == 1) {
+        let res = (
+          await axios.get(
+            "http://localhost:8080/get-userCart/" + user.data.userId
+          )
+        ).data;
+
+        sessionStorage.setItem("CartId", JSON.stringify(res));
+
+        navigate("/home");
+      } else if (role == 0) {
+        navigate("/admin/AllProducts");
+      }
     } else navigate("login");
   };
 

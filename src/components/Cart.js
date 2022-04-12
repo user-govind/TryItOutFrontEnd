@@ -5,21 +5,24 @@ import { useState } from "react";
 import axios from "axios";
 import ContextCart from "./ContextCart";
 import { reducer } from "./reducer";
+import Swal from "sweetalert2";
 
 export const CartContext = createContext();
 
 const Cart = () => {
   const [Products, setProducts] = useState([]);
-  // console.log("hee");
+
   useEffect(async () => {
-    let url = "http://localhost:8080/get-all-cartProducts/" + 3;
+    let url =
+      "http://localhost:8080/get-all-cartProducts/" +
+      JSON.parse(sessionStorage.getItem("CartId"));
 
     let res = await axios.post(url, {});
-    //console.log(res.data);
+
     setProducts(res.data);
   }, []);
-  const [products, setproducts] = useState([]);
 
+  const [products, setproducts] = useState([]);
   Products.map(
     (item, index) =>
       (products[index] = {
@@ -34,19 +37,41 @@ const Cart = () => {
       })
   );
 
-  console.log(products);
-
   const initialState = {
     item: products,
-    totalAmount: 0,
-    totalItem: 0,
+    totalAmount: 3698,
+    totalItem: 45,
   };
 
-  // const [item, setItem] = useState(products);
+  let baseUrl = "http://localhost:8080/";
+
+  let body = {
+    userCartId: JSON.parse(sessionStorage.getItem("CartId")),
+    quantity: 0,
+    productId: 0,
+  };
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // to delete the indv. elements from an Item Cart
-  const removeItem = (id) => {
+  const removeItem = async (id) => {
+    body.productId = id;
+    let res = await axios.put(baseUrl + "delete-UserProduct/", body);
+
+    if (res.data) {
+      Swal.fire({
+        icon: "success",
+        title: "Product removed :)",
+        text: "Product is removed from cart",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        icon: "error",
+        title: "Something went wrong",
+        text: "Try again!!",
+      });
+    }
     return dispatch({
       type: "REMOVE_ITEM",
       payload: id,
@@ -54,12 +79,33 @@ const Cart = () => {
   };
 
   // clear the cart
-  const clearCart = () => {
+  const clearCart = async () => {
+    let res = await axios.put(
+      baseUrl + "clear-cart/" + JSON.parse(sessionStorage.getItem("CartId"))
+    );
+    if (res.data) {
+      Swal.fire({
+        icon: "success",
+        title: "Cart Celared :)",
+        text: "Add fresh products to cart",
+      });
+    } else {
+      Swal.fire({
+        icon: "error",
+        title: "Something went wrong",
+        text: "Try again!!",
+      });
+    }
+
     return dispatch({ type: "CLEAR_CART" });
   };
 
   // increment the item
-  const increment = (id) => {
+  const increment = async (id, quantity) => {
+    body.productId = id;
+    body.quantity = quantity;
+    let res = await axios.put(baseUrl + "plus-UserProduct", body);
+
     return dispatch({
       type: "INCREMENT",
       payload: id,
@@ -67,7 +113,11 @@ const Cart = () => {
   };
 
   // decrement the item
-  const decrement = (id) => {
+  const decrement = async (id, quantity) => {
+    body.productId = id;
+    body.quantity = quantity;
+    let res = await axios.put(baseUrl + "minus-UserProduct", body);
+
     return dispatch({
       type: "DECREMENT",
       payload: id,
@@ -77,9 +127,7 @@ const Cart = () => {
   // we will use the useEffect to update the data
   useEffect(() => {
     dispatch({ type: "GET_TOTAL" });
-    // console.log("Awesome");
-  }, [state.item]);
-
+  }, [state.item, state.totalAmount]);
   return (
     <CartContext.Provider
       value={{ ...state, removeItem, clearCart, increment, decrement }}

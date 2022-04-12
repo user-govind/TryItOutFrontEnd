@@ -88,9 +88,11 @@ export default function TryOn() {
 </div>
     </div>`
     );
+
     div.style("background-color", "White")
     div.position(900, 410);
     p5.createCanvas(1500, 1000);
+
     video = p5.createCapture(p5.VIDEO);
 
     video.hide();
