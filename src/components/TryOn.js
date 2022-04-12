@@ -10,6 +10,8 @@ import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
 import Tshirt from "../Images/Tshirt.png";
 import Footer from "./Footer";
+import Carousell from "./Carousell"
+import '../stylesheets/Register.css'
 
 export default function TryOn() {
   let video;
@@ -40,20 +42,57 @@ export default function TryOn() {
   }
 
   function setup(p5) {
-    div = p5.createDiv(1000).size(500, 500);
+    div = p5.createDiv(750).size(500, 444);
     div.html(
-      `<div class="card" style="width: 38rem; height:40rem">
-      <img class="card-img-top" src=${Tshirt} alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
-      </div>
+      `<div class="flex1">
+      <div class="flex2" >
+    <div class="card" style="width:250px;">
+    <div style="padding-left:46px;">
+    <img class="card-img-top" src=${Tshirt} style= "height: 150px; width:160px; justify-content-center; " alt="Card image cap"></div>
+    <div class="card-body">
+    <div  style="margin-left:65px;>
+    <a href="#"  class="btn btn-primary">Try On</a>
+    </div>
+    </div>
+  </div>
+</div>
+        <div class="flex2" >
+<div class="card" style="width: 250px;">
+<div style="padding-left:46px;">
+    <img class="card-img-top" src=${Tshirt} style= "height: 150px; width:160px; justify-content-center; " alt="Card image cap"></div><div class="card-body">
+    <div  style="margin-left:65px;>
+    <a href="#"  class="btn btn-primary">Try On</a>
+    </div></div>
+</div>
+</div>
+    </div>
+    <div class="flex1">
+      <div class="flex2" >
+    <div class="card" style="width:250px;">
+    <div style="padding-left:46px;">
+    <img class="card-img-top" src=${Tshirt} style= "height: 150px; width:160px; justify-content-center; " alt="Card image cap"></div>    <div class="card-body">
+    <div  style="margin-left:65px;>
+    <a href="#"  class="btn btn-primary">Try On</a>
+    </div>  </div>
+  </div>
+</div>
+        <div class="flex2" >
+<div class="card" style="width: 250px;">
+<div style="padding-left:46px;">
+    <img class="card-img-top" src=${Tshirt} style= "height: 150px; width:160px; justify-content-center; " alt="Card image cap"></div><div class="card-body">
+
+    <div  style="margin-left:65px;>
+    <a href="#"  class="btn btn-primary">Try On</a>
+    </div></div>
+</div>
+</div>
     </div>`
     );
-    div.style("background-color", "Red");
-    div.position(1200, 200);
-    p5.createCanvas(2500, 1000);
+
+    div.style("background-color", "White")
+    div.position(900, 410);
+    p5.createCanvas(1500, 1000);
+
     video = p5.createCapture(p5.VIDEO);
 
     video.hide();
@@ -74,7 +113,9 @@ export default function TryOn() {
   }
 
   function draw(p5) {
-    p5.background(0, 155, 123);
+    
+    p5.background(255, 187, 256);
+
     p5.image(video, 200, 200);
 
     // p5.fill(255, 0, 0);
@@ -115,10 +156,11 @@ export default function TryOn() {
       p5.image(img, shoulderx, shouldery, width1, height1);
     }
   }
+
   return (
     <div>
       <Navbar></Navbar>
-
+      <Carousell></Carousell>
       <Sketch setup={setup} draw={draw} preload={preload}></Sketch>
     </div>
   );
