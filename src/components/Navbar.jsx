@@ -110,7 +110,9 @@ import { NorthEastTwoTone } from "@mui/icons-material";
 
 const Container = styled.div`
   height: 60px;
-  background-color: #b3d9ff;
+  background: #83a4d4; 
+  background: -webkit-linear-gradient(to right, #b6fbff, #83a4d4);  
+  background: linear-gradient(to right, #b6fbff, #83a4d4); 
 `;
 const Wrapper = styled.div`
   padding: 10px 20px;
