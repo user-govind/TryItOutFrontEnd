@@ -5,6 +5,8 @@ import "../stylesheets/Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { encrypt } from "./EncryptDecrypt";
 
 export default function Login() {
   let navigate = useNavigate();
@@ -44,13 +46,29 @@ export default function Login() {
     e.preventDefault();
 
     const url = "http://localhost:8080/login";
-
-    let user = await axios.post(url, values);
+    let user;
+    let pass = encrypt(values.password);
+    console.log(pass);
+    let body = {
+      email: values.email,
+      password: pass,
+    };
+    try {
+      user = await axios.post(url, body);
+    } catch (e) {
+      Swal.fire(
+        "Enter valid details",
+        "Create an account if you have not created!!",
+        "error"
+      );
+    }
 
     if (user != null) {
       sessionStorage.setItem("UserId", JSON.stringify(user.data.userId));
       let role = user.data.roleId.roleId;
       sessionStorage.setItem("RoleId", JSON.stringify(role));
+      console.log(user);
+      sessionStorage.setItem("userProPic", JSON.stringify(user.data.userImg));
 
       if (role == 1) {
         let res = (
@@ -65,7 +83,7 @@ export default function Login() {
       } else if (role == 0) {
         navigate("/admin/AllProducts");
       }
-    } else navigate("login");
+    }
   };
 
   const onChange = (e) => {

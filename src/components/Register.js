@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import "../stylesheets/FormInput.css";
 import Swal from "sweetalert2";
+import { encrypt } from "./EncryptDecrypt";
 
 export default function Register() {
   let navigate = useNavigate();
@@ -28,35 +29,36 @@ export default function Register() {
   const [selectedFile, setSelectedFile] = useState(null);
   const inputs = [
     {
-      id: 1,
-      name: "firstName",
+      id: 1, //added newly
+      name: "FirstName",
       type: "text",
       placeholder: "First Name",
       errorMessage:
-        "First Name should be 3-16 characters and shouldn't include any special character!",
+        "First Name should be between 3 to 16 characters and shouldn't include any special character,number!", //change 1-april
       label: "First Name",
-      pattern: "^[A-Za-z]{3,16}$",
+      pattern: "^[A-Za-z]{3,16}$", //change 1-april
       required: true,
     },
     {
-      id: 2,
-      name: "lastName",
+      id: 2, //added newly        // change 1-april
+      name: "LastName",
       type: "text",
       placeholder: "Last Name",
       errorMessage:
-        "Last Name should be 3-16 characters and shouldn't include any special character!",
+        "Last Name should be 3-16 characters and shouldn't include any special character,number!",
       label: "Last Name",
       pattern: "^[A-Za-z]{3,16}$",
       required: true,
     },
     {
-      id: 3,
-      name: "mobile",
-      type: "number",
+      id: 3, //added newly      //change 1-april
+      name: "MobileNumber",
+      type: "text",
       placeholder: "MobileNumber",
-      errorMessage: "Please enter valid Indian Mobile Number!",
+      errorMessage: "MobileNumber should be valid Indian Mobile Number",
       label: "Mobile Number",
       pattern: "^[7-9][0-9]{9}$", //MobileNumber should be of 10 characters and should starts from 7/8/9 (Indian Mobile No.)
+      // pattern: "^[0-9]{10}$",
       required: true,
     },
     {
@@ -90,9 +92,11 @@ export default function Register() {
       required: true,
     },
   ];
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    let userEncyptPass = encrypt(values.password);
+    values.password = userEncyptPass;
     sessionStorage.setItem("User", JSON.stringify(values));
     sessionStorage.setItem("UserProfile", JSON.stringify(selectedFile));
 
@@ -116,35 +120,6 @@ export default function Register() {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
-  // const upload = async (e) => {
-  //   e.preventDefault();
-  //   console.log(values.email);
-  //   console.log(values.password);
-  //   let loginData = {
-  //     email: values.email,
-  //     password: values.password,
-  //   };
-
-  //   const lurl = "http://localhost:8080/login";
-
-  //   let user = await axios.post(lurl, values);
-  //   console.log(user.data);
-  //   console.log(user.data.userId);
-  //   let userId = parseInt(user.data.userId);
-  //   const formdata = new FormData();
-
-  //   formdata.append("id", userId);
-  //   formdata.append("profilePic", selectedFile);
-  //   console.log(formdata);
-  //   let url = "http://localhost:8080/upload-profilepic";
-  //   let status = await axios.post(url, formdata);
-  //   console.log(status);
-  // };
-
-  // const getFile = (e) => {
-  //   setSelectedFile(e.target.files[0]);
-  // };
-
   return (
     <>
       <div className="app">
@@ -159,6 +134,10 @@ export default function Register() {
             />
           ))}
           <button className="regbutton">Register</button>
+          <p className="my-0 w-100 text-center p-2">
+            {" "}
+            Already registered? <Link to="/"> Login here</Link>
+          </p>
         </form>
         {/* <form className="regform" onSubmit={upload}>
           <label htmlFor="">Upload your profile pic</label>
@@ -167,10 +146,7 @@ export default function Register() {
           <div>
             <button className="regbutton">Upload</button>
           </div>
-          <p className="my-0 w-100 text-center p-2">
-            {" "}
-            Already registered? <Link to="/"> Login here</Link>
-          </p>
+         
         </form> */}
       </div>
     </>

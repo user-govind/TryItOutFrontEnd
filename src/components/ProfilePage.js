@@ -18,17 +18,89 @@ export default function ProfilePage() {
       "http://localhost:8080/user-profile-info/" +
       JSON.parse(sessionStorage.getItem("UserId"));
 
-    console.log(url);
-
     let res = await axios.post(url, {});
-    alert(res.data);
-    console.log(res.data);
     setUserInfo(res.data);
   }, []);
 
   const [file, setfile] = useState(null);
 
   const [feildStatus, setfeildStatus] = useState("disabled");
+  const [feildStatusAdd, setfeildStatusAdd] = useState("disabled");
+
+  console.log(userInfo);
+
+  let updateUserProfile = (e) => {
+    e.preventDefault();
+    if (feildStatus == "disabled") {
+      setfeildStatus("");
+    } else {
+      let body = {
+        userId: userInfo.id,
+        firstName: userInfo.firstName,
+        lastName: userInfo.lastName,
+        mobile: userInfo.mobile,
+      };
+
+      try {
+        axios
+          .post("http://localhost:8080/update-user-info", body)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data) {
+              Swal.fire("Updated", "User updated succesfully", "success");
+            } else {
+              Swal.fire("Something went wrong", "try again", "error");
+            }
+          })
+          .catch((error) => {
+            Swal.fire("Something went wrong", "try again", "error");
+          });
+      } catch (e) {}
+
+      setfeildStatus("disabled");
+    }
+  };
+
+  let updateUserAddress = (e) => {
+    e.preventDefault();
+    if (feildStatusAdd == "disabled") {
+      setfeildStatusAdd("");
+    } else {
+      let body = {
+        addId: userInfo.addId,
+        addLine1: userInfo.addressLine1,
+        addLine2: userInfo.addressLine2,
+        city: userInfo.city,
+        postalCode: userInfo.postCode,
+        country: userInfo.country,
+        state: userInfo.state,
+      };
+      let res;
+      console.log("body");
+      console.log(body);
+      try {
+        axios
+          .post("http://localhost:8080/update-user-address", body)
+          .then((res) => {
+            console.log(res.data);
+            if (res.data) {
+              Swal.fire("Updated", "Address updated succesfully", "success");
+            } else {
+              Swal.fire("Something went wrong", "try again", "error");
+            }
+          })
+          .catch((error) => {
+            Swal.fire("Something went wrong", "try again", "error");
+          });
+      } catch (e) {}
+
+      setfeildStatusAdd("disabled");
+    }
+  };
+
+  const onChangeUserInfo = (e) => {
+    setUserInfo({ ...userInfo, [e.target.name]: e.target.value });
+  };
 
   return (
     <div>
@@ -55,6 +127,9 @@ export default function ProfilePage() {
                   className="btn btn-primary  "
                   type="button"
                   value="My Cart"
+                  onClick={() => {
+                    navigate("/cart");
+                  }}
                 />
               </div>
               <div className="mt-4 pt-2 d-flex justify-content-center">
@@ -62,6 +137,9 @@ export default function ProfilePage() {
                   className="btn btn-primary btn "
                   type="button"
                   value="My Orders"
+                  onClick={() => {
+                    navigate("/your-orders");
+                  }}
                 />
               </div>
             </div>
@@ -72,7 +150,7 @@ export default function ProfilePage() {
               <h3 className="mb-0 pb-2 pb-md-0 mb-md-2 text-center">
                 My Profile
               </h3>
-              <form>
+              <form onSubmit={updateUserProfile}>
                 <div className="row ">
                   <div className="col-md-6 mb-4 ">
                     <div className="form-outline ">
@@ -85,8 +163,10 @@ export default function ProfilePage() {
                       <input
                         type="text"
                         id="firstName"
+                        name="firstName"
                         className="form-control form-control-lg"
-                        value="Govind"
+                        value={userInfo.firstName}
+                        onChange={onChangeUserInfo}
                         disabled={feildStatus}
                         required
                       />
@@ -103,6 +183,9 @@ export default function ProfilePage() {
                       <input
                         type="text"
                         id="lastName"
+                        name="lastName"
+                        value={userInfo.lastName}
+                        onChange={onChangeUserInfo}
                         className="form-control form-control-lg"
                         disabled={feildStatus}
                         required
@@ -110,27 +193,6 @@ export default function ProfilePage() {
                     </div>
                   </div>
                 </div>
-
-                <div className="row">
-                  <div className="col-md-12 mb-4 d-flex align-items-center">
-                    <div className="form-outline datepicker w-100 ">
-                      <label
-                        for="birthdayDate"
-                        className="form-label  text-dark fs-6"
-                      >
-                        Birth Date
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        id="birthdayDate"
-                        disabled={feildStatus}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-
                 <div className="row">
                   <div className="col-md-12 mb-4 d-flex align-items-center">
                     <div className="form-outline datepicker w-100">
@@ -143,7 +205,10 @@ export default function ProfilePage() {
                       <input
                         type="text"
                         className="form-control form-control-lg"
-                        id="birthdayDate"
+                        id="email"
+                        name="email"
+                        value={userInfo.email}
+                        onChange={onChangeUserInfo}
                         disabled
                         required
                       />
@@ -163,12 +228,39 @@ export default function ProfilePage() {
                         type="text"
                         className="form-control form-control-lg"
                         id="Mobile No"
-                        disabled
+                        name="mobile"
+                        value={userInfo.mobile}
+                        onChange={onChangeUserInfo}
+                        disabled={feildStatus}
                         required
                       />
                     </div>
                   </div>
                 </div>
+
+                <div className="row">
+                  <div className="col-md-12 mb-4 d-flex align-items-center">
+                    <div className="form-outline datepicker w-100 ">
+                      <label
+                        for="country"
+                        className="form-label  text-dark fs-6"
+                      >
+                        Country
+                      </label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        id="country"
+                        name="country"
+                        value={userInfo.country}
+                        onChange={onChangeUserInfo}
+                        disabled={feildStatusAdd}
+                        required
+                      />
+                    </div>
+                  </div>
+                </div>
+
                 <div className="mt-4 pt-2 d-flex justify-content-center">
                   <input
                     className="btn btn-primary btn "
@@ -183,7 +275,7 @@ export default function ProfilePage() {
             <div className="row mt-2">
               <h4 className="d-flex justify-content-center">Address</h4>
             </div>
-            <form>
+            <form onSubmit={updateUserAddress}>
               <div className="row">
                 <div className="col-md-12 mb-4 d-flex align-items-center">
                   <div className="form-outline datepicker w-100">
@@ -196,8 +288,11 @@ export default function ProfilePage() {
                     <input
                       type="text"
                       className="form-control form-control-lg"
-                      id="birthdayDate"
-                      disabled
+                      id="Address Line 1"
+                      name="addressLine1"
+                      value={userInfo.addressLine1}
+                      onChange={onChangeUserInfo}
+                      disabled={feildStatusAdd}
                       required
                     />
                   </div>
@@ -215,8 +310,11 @@ export default function ProfilePage() {
                     <input
                       type="text"
                       className="form-control form-control-lg"
-                      id="birthdayDate"
-                      disabled
+                      id="Address Line 2"
+                      name="addressLine2"
+                      value={userInfo.addressLine2}
+                      onChange={onChangeUserInfo}
+                      disabled={feildStatusAdd}
                       required
                     />
                   </div>
@@ -232,8 +330,11 @@ export default function ProfilePage() {
                     <input
                       type="text"
                       className="form-control form-control-lg"
-                      id="birthdayDate"
-                      disabled
+                      id="pin"
+                      name="postCode"
+                      value={userInfo.postCode}
+                      onChange={onChangeUserInfo}
+                      disabled={feildStatusAdd}
                       required
                     />
                   </div>
@@ -242,17 +343,34 @@ export default function ProfilePage() {
               <div className="row">
                 <div className="col-md-12 mb-4 d-flex align-items-center">
                   <div className="form-outline datepicker w-100">
-                    <label
-                      for="Additional Details"
-                      className="form-label text-dark fs-6"
-                    >
-                      Additional Details
+                    <label for="City" className="form-label text-dark fs-6">
+                      City
                     </label>
                     <input
                       type="text"
                       className="form-control form-control-lg"
-                      id="birthdayDate"
-                      disabled
+                      name="city"
+                      value={userInfo.city}
+                      onChange={onChangeUserInfo}
+                      disabled={feildStatusAdd}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="row">
+                <div className="col-md-12 mb-4 d-flex align-items-center">
+                  <div className="form-outline datepicker w-100">
+                    <label for="state" className="form-label text-dark fs-6">
+                      State
+                    </label>
+                    <input
+                      type="text"
+                      id="state"
+                      className="form-control form-control-lg"
+                      name="state"
+                      value={userInfo.state}
+                      onChange={onChangeUserInfo}
+                      disabled={feildStatusAdd}
                     />
                   </div>
                 </div>
@@ -273,7 +391,6 @@ export default function ProfilePage() {
 }
 
 function Photo({ user }) {
-  console.log(user);
   if (user.userImg == undefined || user.userImg == null) {
     user.userImg = "defalutUserImg.png";
   }
@@ -282,17 +399,14 @@ function Photo({ user }) {
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
-    console.log(file);
     if (file) {
       let userId = JSON.parse(sessionStorage.getItem("UserId"));
       const formdata = new FormData();
 
       formdata.append("id", userId);
       formdata.append("profilePic", file);
-      console.log(formdata);
       let url = "http://localhost:8080/upload-profilepic";
       let status = await axios.post(url, formdata);
-      console.log(status);
       const reader = new FileReader();
       const { current } = uploadedImage;
       current.file = file;
@@ -341,7 +455,7 @@ function Photo({ user }) {
           src={require("../User-ProfilePics/" + user.userImg)}
         />
       </div>
-      Click to upload Image
+      Click on Image to <br /> change or upload image
     </div>
   );
 }
