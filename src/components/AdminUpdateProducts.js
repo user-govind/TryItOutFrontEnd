@@ -11,37 +11,27 @@ function AdminUpdate() {
   const [productList, setproductList] = useState([]);
 
   const [filterProductList, setfilterProductList] = useState([]);
-
-  let navigate = useNavigate();
-
-  const [search, setsearch] = useState();
-
-  let loadProducts = async () => {
+  useEffect(async () => {
     let products = (await axios.post("http://localhost:8080/all-products", {}))
       .data;
     setproductList(products);
     setfilterProductList(products);
-  };
-
-  useEffect(async () => {
-    loadProducts();
-    filterproducts();
   }, []);
 
-  let DeleteProduct = async (e) => {
-    console.log(e.target.id);
-    let url = "http://localhost:8080/delete-product/" + e.target.id;
+  useEffect(() => {
+    if (productList != null || productList != undefined) filterproducts();
+  }, [filterProductList]);
 
-    let status = await axios.put(url);
-    if (status) {
-      alert("deleted");
-      loadProducts();
-    }
-  };
+  let navigate = useNavigate();
+
+  let [search, setsearch] = useState();
 
   let filterproducts = () => {
-    setsearch(JSON.parse(sessionStorage.getItem("Search")));
-    let words = search.split(" ");
+    let searchval = JSON.parse(sessionStorage.getItem("Search"));
+    console.log(searchval);
+    console.log(productList);
+
+    let words = searchval.split(" ");
     console.log(words);
     let result1, result2, result3;
     let concatres;
@@ -82,17 +72,19 @@ function AdminUpdate() {
     console.log(filterProductList);
   };
 
+  let DeleteProduct = async (e) => {
+    console.log(e.target.id);
+    let url = "http://localhost:8080/delete-product/" + e.target.id;
+
+    let status = await axios.put(url);
+    if (status) {
+      alert("deleted");
+    }
+  };
+
   return (
     <div className="mx-5 my-4">
       <div className="alert alert-secondary">
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => {
-            setsearch(e.target.value);
-          }}
-        />
-
         <Row xs={1} md={2} className="g-4 m-0 p-0">
           {filterProductList.map((item, index) => (
             <Col className="col col-md-3 my-3" style={{ maxHeight: "700px" }}>
