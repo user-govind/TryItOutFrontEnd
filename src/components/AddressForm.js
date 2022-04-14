@@ -14,6 +14,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Copyright() {
   return (
@@ -37,6 +38,8 @@ function getStepContent(step) {
 const theme = createTheme();
 
 export default function Checkout() {
+  let navigate = useNavigate();
+
   const loadScript = (src) => {
     return new Promise((resolve) => {
       const script = document.createElement("script");
@@ -96,6 +99,7 @@ export default function Checkout() {
           title: "Ordered :)",
           text: "Thank you for shopping!! Your product is on the way ",
         });
+        navigate("/home");
       }
     } catch (e) {
       Swal.fire({
@@ -121,8 +125,7 @@ export default function Checkout() {
         amount: res.data.amount,
         name: "Welcome to tryitout",
         description: "Test Wallet Transaction",
-        image:
-          "https://images.fastcompany.net/image/upload/w_596,c_limit,q_auto:best,f_auto/fc/3034007-inline-i-applelogo.jpg",
+        image: require("../Images/tryitouttranslogo.png"),
         order_id: res.data.orderId,
         handler: function (response) {
           console.log(response.razorpay_payment_id);
@@ -138,12 +141,12 @@ export default function Checkout() {
           BuyNow();
         },
         prefill: {
-          name: "govind",
-          email: "alsdj@gmail.com",
-          contact: "1020304050",
+          name: "",
+          email: "",
+          contact: "",
         },
         notes: {
-          address: "tryitoutpvtlimted",
+          address: "tryitout",
         },
         theme: {
           color: "#3399cc",

@@ -110,7 +110,7 @@ export default function ProfilePage() {
             <div className="row mt-3">
               <div className="d-flex flex-column align-items-center text-center">
                 <form>
-                  <Photo className="image w-50" user={userInfo}></Photo>
+                  <Photo className="image w-50" user={userInfo.userImg}></Photo>
                   {/* <img
                     className="image w-50"
                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
@@ -391,11 +391,13 @@ export default function ProfilePage() {
 }
 
 function Photo({ user }) {
-  if (user.userImg == null) {
-    user.userImg = "defalutUserImg.png";
+  if (user == undefined || user == null || user == "") {
+    console.log(user);
+    user = "defalutUserImg.png";
+    console.log("Control reached here");
+    console.log(user);
+    // user.userImg = "defalutUserImg.png";
   }
-  let img = "defalutUserImg.png";
-
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
@@ -454,7 +456,7 @@ function Photo({ user }) {
             position: "acsolute",
             borderRadius: "50%",
           }}
-          src={require("../User-ProfilePics/defalutUserImg.png")}
+          src={require("../User-ProfilePics/" + user)}
         />
       </div>
       Click on Image to <br /> change or upload image
