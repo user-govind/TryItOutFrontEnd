@@ -391,9 +391,11 @@ export default function ProfilePage() {
 }
 
 function Photo({ user }) {
-  if (user.userImg == undefined || user.userImg == null) {
+  if (user.userImg == null) {
     user.userImg = "defalutUserImg.png";
   }
+  let img = "defalutUserImg.png";
+
   const uploadedImage = React.useRef(null);
   const imageUploader = React.useRef(null);
 
@@ -452,7 +454,7 @@ function Photo({ user }) {
             position: "acsolute",
             borderRadius: "50%",
           }}
-          src={require("../User-ProfilePics/" + user.userImg)}
+          src={require("../User-ProfilePics/defalutUserImg.png")}
         />
       </div>
       Click on Image to <br /> change or upload image

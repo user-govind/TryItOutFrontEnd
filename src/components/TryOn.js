@@ -10,8 +10,8 @@ import Typography from "@mui/material/Typography";
 import Navbar from "./Navbar";
 import Tshirt from "../Images/Tshirt.png";
 import Footer from "./Footer";
-import Carousell from "./Carousell"
-import '../stylesheets/Register.css'
+import Carousell from "./Carousell";
+import "../stylesheets/Register.css";
 
 export default function TryOn() {
   let video;
@@ -89,8 +89,8 @@ export default function TryOn() {
     </div>`
     );
 
-    div.style("background-color", "White")
-    div.position(900, 410);
+    div.style("background-color", "White");
+    div.position(900, 600);
     p5.createCanvas(1500, 1000);
 
     video = p5.createCapture(p5.VIDEO);
@@ -113,27 +113,11 @@ export default function TryOn() {
   }
 
   function draw(p5) {
-    
     p5.background(255, 187, 256);
 
     p5.image(video, 200, 200);
 
-    // p5.fill(255, 0, 0);
-
     if (singlePose) {
-      //   for (let i = 0; i < singlePose.keypoints.length; i++) {
-      //     p5.ellipse(
-      //       singlePose.keypoints[i].position.x + 200,
-      //       singlePose.keypoints[i].position.y + 200,
-      //       20
-      //     );
-      //   }
-      //   p5.stroke(255, 255, 255);
-      //   p5.strokeWeight(5);
-
-      // p5.image(img, singlePose.nose.x - 35, singlePose.nose.y - 50, 200, 200);
-      //  image(smoke, singlePose.nose.x - 35, singlePose.nose.y + 10, 40, 40);
-
       shoulderx = singlePose.keypoints[6].position.x + 200 - 160;
       shouldery = singlePose.keypoints[6].position.y + 200 - 90;
 

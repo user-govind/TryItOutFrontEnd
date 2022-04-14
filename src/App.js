@@ -4,7 +4,7 @@ import Register from "./components/Register";
 import Home from "./Pages/Home";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AddP from "./components/addproducts";
-// import TryOn from "./components/TryOn";
+import TryOn from "./components/TryOn";
 import ProductDescription from "./Pages/ProductDescription";
 import Otpcheck from "./components/otpcheck";
 import AddProductsAdmin from "./Pages/AddProductsAdmin";
@@ -49,7 +49,7 @@ function App() {
             ></Route>
 
             <Route path="/add" element={<AddP></AddP>}></Route>
-            {/* <Route path="/tryon" element={<TryOn></TryOn>}></Route> */}
+            <Route path="/tryon" element={<TryOn></TryOn>}></Route>
             <Route path="/payment" element={<RazorPay></RazorPay>}></Route>
             <Route
               path="/admin/update-Products"
