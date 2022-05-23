@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
+import Swal from "sweetalert2";
 
 export default function AdminUsersList() {
   const [userList, setUserList] = useState([]);
@@ -9,10 +10,14 @@ export default function AdminUsersList() {
 
   const [filterUsers, setfilterUsers] = useState([]);
 
-  useEffect(async () => {
+  let getAllUsers = async () => {
     let res = await axios.post("http://localhost:8080/getUsers", {});
     setUserList(res.data);
     setfilterUsers(res.data);
+  };
+
+  useEffect(() => {
+    getAllUsers();
   }, []);
 
   useEffect(() => {
@@ -22,6 +27,8 @@ export default function AdminUsersList() {
     setfilterUsers(result);
   }, [search]);
 
+  let img = "defalutUserImg.png";
+
   const columns = [
     {
       name: "Id",
@@ -29,29 +36,32 @@ export default function AdminUsersList() {
       width: "80px",
       sortable: true,
     },
-    // {
-    //   name: "Image",
-    //   selector: (row) => (
-    //     <img
-    //       src={require("../User-ProfilePics/" + row.image)}
-    //       alt={row.fristName}
-    //       height={80}
-    //       width={80}
-    //     />
-    //   ),
-    //   width: "150px",
-    // },
+    {
+      name: "Image",
+      selector: (row) => (
+        <img
+          src={require("../User-ProfilePics/" +
+            (row.image == null || row.image == undefined || row.image == ""
+              ? img
+              : row.image))}
+          alt={row.fristName}
+          height={80}
+          width={80}
+        />
+      ),
+      width: "150px",
+    },
     {
       name: "Frist Name",
       selector: (row) => row.firstName,
       sortable: true,
-      width: "400px",
+      width: "100px",
     },
     {
       name: "Last Name",
       selector: (row) => row.lastName,
       sortable: true,
-      width: "400px",
+      width: "100px",
     },
     {
       name: "Email",
@@ -79,8 +89,38 @@ export default function AdminUsersList() {
       selector: (row) => row.status,
     },
     {
-      name: "Gender",
-      selector: (row) => row.gender,
+      name: "Action",
+      cell: (row) => (
+        <button
+          className="btn btn-primary w-100"
+          id={row.userId}
+          onClick={async (e) => {
+            if (row.status == "Active") {
+              let res = await axios.get(
+                "http://localhost:8080/ban-user/" + e.target.id
+              );
+              if (res.data) {
+                Swal.fire("User Banned", "", "success");
+                getAllUsers();
+              } else {
+                Swal.fire("Something went wrong", "Please try again", "error");
+              }
+            } else {
+              let res = await axios.get(
+                "http://localhost:8080/unban-user/" + e.target.id
+              );
+              if (res.data) {
+                Swal.fire("User Unbanned", "", "success");
+                getAllUsers();
+              } else {
+                Swal.fire("Something went wrong", "Please try again", "error");
+              }
+            }
+          }}
+        >
+          {row.status == "Active" ? "Ban" : "Unban"}
+        </button>
+      ),
     },
   ];
 

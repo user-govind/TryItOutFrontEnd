@@ -191,6 +191,7 @@ export default function OneProduct({ product, setproduct }) {
           <button
             className="btn btn-lg btn-warning"
             onClick={() => {
+              sessionStorage.setItem("TryOnImg", JSON.stringify("Tshirt.png"));
               navigate("/tryon");
             }}
           >

@@ -19,11 +19,14 @@ import AdminProductsDataTable from "./Pages/AdminProductsDataTable";
 import AdminUpdateProdus from "./Pages/AdminUpdateProdus";
 import AddressPage from "./Pages/AddressPage";
 import AdminUserListPage from "./Pages/AdminUserListPage";
+import Chat from "./components/Chat";
+import AboutPage from "./Pages/AboutPage";
 
 function App() {
   return (
     <>
       <Router>
+        <Chat></Chat>
         <div>
           <Routes>
             <Route path="/" element={<Login></Login>}></Route>
@@ -68,6 +71,7 @@ function App() {
               element={<UserProfile></UserProfile>}
             ></Route>
 
+            <Route path="/about-us" element={<AboutPage></AboutPage>}></Route>
             <Route
               path="/your-orders"
               element={<OrderHistory></OrderHistory>}

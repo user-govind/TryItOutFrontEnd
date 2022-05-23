@@ -24,7 +24,7 @@ export default function AddP() {
       params: {
         store: "US",
         offset: "0",
-        categoryId: "5229",
+        categoryId: "3136",
         limit: "48",
         country: "US",
         sort: "freshness",
@@ -34,7 +34,7 @@ export default function AddP() {
       },
       headers: {
         "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-        "X-RapidAPI-Key": "39f8f04835msha89819f84249cf8p1fb440jsn0603052c692f",
+        "X-RapidAPI-Key": "fc55ac1e0amsh6f13987665dcb88p13eb85jsn523c068d5215",
       },
     };
 
@@ -49,24 +49,23 @@ export default function AddP() {
 
         let myset = new Set();
 
-        let j = 45;
+        let j = 2;
 
-        for (let i = 10; i <= 14; i++) {
-
+        for (let i = j; i <= j; i++) {
           // console.log("hello");
           productObj.name = response.data.products[i].name;
           productObj.brand = response.data.products[i].brandName;
           productObj.productImg = response.data.products[i].imageUrl;
           productObj.price = response.data.products[i].price.current.value;
           let pid = response.data.products[i].id;
-          // console.log("bye");
-          if (!myset.has(productObj.brand)) {
-            myset.add(productObj.brand);
-            console.log(myset);
-            arr[k++] = i;
-            console.log(arr);
-            getProductdetails(pid, productObj);
-          }
+          console.log("bye");
+          // if (!myset.has(productObj.brand)) {
+          //   myset.add(productObj.brand);
+          //   console.log(myset);
+          //   arr[k++] = i;
+          //   console.log(arr);
+          getProductdetails(pid, productObj);
+          // }
         }
       })
       .catch(function (error) {
@@ -86,7 +85,7 @@ export default function AddP() {
       },
       headers: {
         "X-RapidAPI-Host": "asos2.p.rapidapi.com",
-        "X-RapidAPI-Key": "39f8f04835msha89819f84249cf8p1fb440jsn0603052c692f",
+        "X-RapidAPI-Key": "fc55ac1e0amsh6f13987665dcb88p13eb85jsn523c068d5215",
       },
     };
 
@@ -100,7 +99,7 @@ export default function AddP() {
         productObj.colour = response.data.variants[0].colour;
 
         productObj.quantity = 10000;
-
+        console.log(productObj);
         postProduct(productObj);
       })
       .catch(function (error) {

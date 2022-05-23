@@ -90,7 +90,7 @@ export default function ProductsDataTable() {
       name: "Name",
       selector: (row) => row.name,
       sortable: true,
-      width: "400px",
+      width: "200px",
     },
     {
       name: "Brand",
@@ -101,17 +101,19 @@ export default function ProductsDataTable() {
     {
       name: "Descripition",
       selector: (row) => row.description,
-      width: "500px",
+      width: "300px",
     },
     {
       name: "Quantity",
       selector: (row) => row.quantity,
       sortable: true,
+      width: "100px",
     },
     {
       name: "Price",
       selector: (row) => row.price,
       sortable: true,
+      width: "75px",
     },
     {
       name: "Category",
@@ -156,7 +158,6 @@ export default function ProductsDataTable() {
       data={filterProducts}
       pagination
       fixedHeader
-      selectableRows
       selectableRowsHighlight
       highlightOnHover
       subHeader

@@ -293,8 +293,8 @@ function UpdateProducsAdmin() {
                       ></input>
                     </div>
                     <br />
-                    <div className="d-flex justify-content-between mb-5">
-                      <label for="filename"></label>
+                    <div className="d-flex justify-content-center mb-5">
+                      <label for="filename">Product image : </label>
                       <input
                         type="file"
                         id="productfile"

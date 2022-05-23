@@ -40,9 +40,12 @@ const OTPBox = () => {
 
   return (
     <>
-      <div className="container">
+      <div
+        className="container-fluid "
+        style={{ background: "linear-gradient(to right, #b6fbff, #83a4d4)" }}
+      >
         <div className="row justify-content-center align-content-center hei">
-          <div className="col text-center">
+          <div className="col-8 text-center">
             <Card className="" sx={{ minWidth: 275 }}>
               <h3>TryItOut</h3>
               <h1>Verify its you</h1>
@@ -119,7 +122,14 @@ const OTPBox = () => {
                 </p>
               </CardContent>
               <CardActions>
-                <Button size="small">Learn More</Button>
+                <Button
+                  onClick={() => {
+                    navigate("/register");
+                  }}
+                  size="small"
+                >
+                  Go back
+                </Button>
               </CardActions>
             </Card>
           </div>

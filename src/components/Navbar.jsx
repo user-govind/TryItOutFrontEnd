@@ -196,7 +196,20 @@ const Navbar = () => {
                     >
                       User Orders
                     </Dropdown.Item>
-                    <Dropdown.Item href="/">Log Out</Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        navigate("/about-us");
+                      }}
+                    >
+                      About us
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      Log Out
+                    </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </div>

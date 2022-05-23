@@ -276,7 +276,7 @@ function Adminadd() {
                     </div>
                     <br />
 
-                    <div className="d-flex justify-content-evenly">
+                    <div className="d-flex justify-content-center">
                       <label for="pname">Product Brand:</label>
                       <input
                         type="text"
@@ -290,7 +290,7 @@ function Adminadd() {
                     </div>
                     <br />
                     <div className="d-flex justify-content-between mb-5">
-                      <label for="filename"></label>
+                      <label for="filename">Product image : </label>
                       <input
                         type="file"
                         id="productfile"

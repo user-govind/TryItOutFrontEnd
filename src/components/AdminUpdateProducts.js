@@ -105,22 +105,12 @@ function AdminUpdate() {
                       {"$ " + item.price}
                     </div>
                   </Card.Text>
-                  {/* <div className="d-flex justify-content-evenly">
-                    <Button
-                      className="btn w-100 mx-2"
-                      onClick={() => {
-                        navigate("/add-products");
-                      }}
-                    >
-                      Edit
+                  <div className="d-flex justify-content-evenly">
+                    <Button className="btn w-100 mx-2">Add to cart</Button>
+                    <Button className="btn w-100 mx-2" id={item.productId}>
+                      View details
                     </Button>
-                    <Button
-                      className="btn w-100 mx-2"
-                      id={item.productId}
-                      onClick={DeleteProduct}
-                    >
-                      Delete
-                    </Button> */}
+                  </div>
                 </Card.Body>
               </Card>
             </Col>

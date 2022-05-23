@@ -320,9 +320,8 @@ export default function ProfilePage() {
                   </div>
                 </div>
               </div>
-
               <div className="row">
-                <div className="col-md-12 mb-4 d-flex align-items-center">
+                <div className="col-md-6 mb-4 d-flex align-items-center">
                   <div className="form-outline datepicker w-100">
                     <label for="PIN" className="form-label text-dark fs-6">
                       PIN
@@ -339,9 +338,8 @@ export default function ProfilePage() {
                     />
                   </div>
                 </div>
-              </div>
-              <div className="row">
-                <div className="col-md-12 mb-4 d-flex align-items-center">
+
+                <div className="col-md-6 mb-4 d-flex align-items-center">
                   <div className="form-outline datepicker w-100">
                     <label for="City" className="form-label text-dark fs-6">
                       City

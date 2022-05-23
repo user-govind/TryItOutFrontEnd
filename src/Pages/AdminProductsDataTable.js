@@ -3,6 +3,7 @@ import ProductsDataTable from "../components/AdminDataTable";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../components/AdminNavbar";
 export default function AdminProductsDataTable() {
   let navigate = useNavigate();
   useEffect(() => {
@@ -15,7 +16,7 @@ export default function AdminProductsDataTable() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <AdminNavbar />
       <ProductsDataTable></ProductsDataTable>
       <Footer></Footer>
     </>

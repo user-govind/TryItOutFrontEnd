@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Adminadd from "../components/AdminAddProduct";
+import AdminNavbar from "../components/AdminNavbar";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 
@@ -16,7 +17,7 @@ export default function AddProductsAdmin() {
   }, []);
   return (
     <>
-      <Navbar></Navbar>
+      <AdminNavbar />
       <Adminadd></Adminadd>
       <Footer></Footer>
     </>

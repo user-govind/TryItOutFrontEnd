@@ -30,7 +30,7 @@ export default function Register() {
   const inputs = [
     {
       id: 1, //added newly
-      name: "FirstName",
+      name: "firstName",
       type: "text",
       placeholder: "First Name",
       errorMessage:
@@ -41,7 +41,7 @@ export default function Register() {
     },
     {
       id: 2, //added newly        // change 1-april
-      name: "LastName",
+      name: "lastName",
       type: "text",
       placeholder: "Last Name",
       errorMessage:
@@ -52,7 +52,7 @@ export default function Register() {
     },
     {
       id: 3, //added newly      //change 1-april
-      name: "MobileNumber",
+      name: "mobile",
       type: "text",
       placeholder: "MobileNumber",
       errorMessage: "MobileNumber should be valid Indian Mobile Number",
@@ -93,8 +93,22 @@ export default function Register() {
     },
   ];
 
+  const validationcheck = () => {
+    if (
+      values.firstName == "" ||
+      values.lastName == "" ||
+      values.email == "" ||
+      values.mobile == "" ||
+      values.password == "" ||
+      values.confirmPassword == ""
+    ) {
+      Swal.fire("Enter all feilds", "Please fill details and proceed", "error");
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     let userEncyptPass = encrypt(values.password);
     values.password = userEncyptPass;
     sessionStorage.setItem("User", JSON.stringify(values));
@@ -133,21 +147,14 @@ export default function Register() {
               onChange={onChange}
             />
           ))}
-          <button className="regbutton">Register</button>
+          <button className="regbutton" onClick={validationcheck}>
+            Register
+          </button>
           <p className="my-0 w-100 text-center p-2">
             {" "}
             Already registered? <Link to="/"> Login here</Link>
           </p>
         </form>
-        {/* <form className="regform" onSubmit={upload}>
-          <label htmlFor="">Upload your profile pic</label>
-          <br></br>
-          <input className="formInput" type="file" onChange={getFile} />
-          <div>
-            <button className="regbutton">Upload</button>
-          </div>
-         
-        </form> */}
       </div>
     </>
   );

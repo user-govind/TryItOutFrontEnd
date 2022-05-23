@@ -41,7 +41,18 @@ export default function Login() {
       required: true,
     },
   ];
-
+  const validationcheck = () => {
+    if (
+      values.firstName == "" ||
+      values.lastName == "" ||
+      values.email == "" ||
+      values.mobile == "" ||
+      values.password == "" ||
+      values.confirmPassword == ""
+    ) {
+      Swal.fire("Enter all feilds", "Please fill details and proceed", "error");
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -102,9 +113,10 @@ export default function Login() {
             onChange={onChange}
           />
         ))}
-        <button className="logbutton">Login</button>
+        <button className="logbutton" onClick={validationcheck}>
+          Login
+        </button>
         <p className="my-0 w-100 text-center">
-          {" "}
           New User? <Link to="/register"> Create an account</Link>
         </p>
       </form>
